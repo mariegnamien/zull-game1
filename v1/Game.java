@@ -85,13 +85,13 @@ public class Game
     
     public void play() {
         boolean vFinished = false;
-        printWelcome();
+        this.printWelcome();
         while(vFinished == false){
             Command vCommand = this.aParser.getCommand();
-            vFinished = processCommand(vCommand);
+            vFinished = this.processCommand(vCommand);
         }
         System.out.println("Thank you for playing. Good bye.");
-    }
+    }// play()
     
     private void createRooms() {
         Room vOutside = new Room("outside the main entrance of the university");
