@@ -29,6 +29,11 @@ public class Room
         this.aEastExit = pRoom4;
     }
     
+    public String getExitString(){
+        String vExits = "";
+        vExits += this.aNorthExit +" "+ this.aSouthExit + " " +this.aEastExit + " " + this.aWestExit;
+        return vExits;
+    }
     public Room getExit(String direction){
         if(direction.equals("north")){
             return aNorthExit;
