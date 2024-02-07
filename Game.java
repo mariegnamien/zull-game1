@@ -1,5 +1,3 @@
- 
-
 /**
  * Classe Game - le moteur du jeu d'aventure Zuul.
  *
@@ -10,27 +8,30 @@ public class Game
     private Room aCurrentRoom;
     private Parser aParser;
     
+    private void printLocationInfo(){
+    System.out.println("You are "+ this.aCurrentRoom.getDescription());
+    System.out.print("Exits : ");
+        if(this.aCurrentRoom.getExit("north") != null){
+            System.out.print("north ");
+        }
+        if(this.aCurrentRoom.getExit("south") != null){
+            System.out.print("south ");
+        }
+        if(this.aCurrentRoom.getExit("west") != null){
+            System.out.print("west ");
+        }
+        if(this.aCurrentRoom.getExit("east") != null){
+            System.out.print("east ");
+        }
+        System.out.println();
+    }
+    
     private void printWelcome(){
     System.out.println("Welcome to the World of Zuul!"); 
     System.out.println("World of Zuul is a new, incredibly boring adventure game.");
     System.out.println("Type 'help' if you need help."); 
     System.out.println("");
-    System.out.println("You are "+ this.aCurrentRoom.getDescription());
-    System.out.print("Exits : ");
-        if(this.aCurrentRoom.aNorthExit != null){
-            System.out.print("north ");
-        }
-        if(this.aCurrentRoom.aSouthExit != null){
-            System.out.print("south ");
-        }
-        if(this.aCurrentRoom.aWestExit != null){
-            System.out.print("west ");
-        }
-        if(this.aCurrentRoom.aEastExit != null){
-            System.out.print("east ");
-        }
-    
-    
+    printLocationInfo();
     
     }
 
@@ -122,70 +123,64 @@ public class Game
         this.aCurrentRoom = vGroceryStore;
     }
     
+
     private void goRoom(final Command pRoom){
         Room vNextRoom = null;
         String vDirection = pRoom.getSecondWord();
         String vDirections = "";
+
         if (!pRoom.hasSecondWord()){
                 System.out.println("Go where ?");
                 return;
             }
-            
-        if(vDirection.equals("north")){
-            vNextRoom = this.aCurrentRoom.aNorthExit;
-            if(vNextRoom == null){
-                System.out.println("There is no door !");
-                return;
-            }
-            this.aCurrentRoom = vNextRoom;
-            System.out.println(this.aCurrentRoom.getDescription());
+        vNextRoom = aCurrentRoom.getExit(vDirection);
+        if(vNextRoom != null){
+            aCurrentRoom = vNextRoom;
         }
-        else if(vDirection.equals("south")){
-            vNextRoom = this.aCurrentRoom.aSouthExit;
-            if(vNextRoom == null){
-                System.out.println("There is no door !");
-                return;
-            }
-            this.aCurrentRoom = vNextRoom;
-            System.out.println(this.aCurrentRoom.getDescription());
+        else if(vNextRoom == null){
+            System.out.println("There is no door !");
+            return;
         }
-        else if(vDirection.equals("west")){
-            vNextRoom = this.aCurrentRoom.aWestExit;
-            if(vNextRoom == null){
-                System.out.println("There is no door !");
-                return;
-            }
-            this.aCurrentRoom = vNextRoom;
-            System.out.println(this.aCurrentRoom.getDescription());
-        }
-        else if(vDirection.equals("east")){
-            vNextRoom = this.aCurrentRoom.aEastExit;
-            if(vNextRoom == null){
-                System.out.println("There is no door !");
-                return;
-            }
-            this.aCurrentRoom = vNextRoom;
-            System.out.println(this.aCurrentRoom.getDescription());;
-        }
-        
         else{
             System.out.println("Unknown direction !");
         }
-        
-        System.out.print("Exits : ");
-        if(this.aCurrentRoom.aNorthExit != null){
-            System.out.print("north ");
+            /*
+        if(vDirection.equals("north")){
+            vNextRoom = aCurrentRoom.getExit("north");
+            if(vNextRoom == null){
+                System.out.println("There is no door !");
+                return;
+            }
+            this.aCurrentRoom = vNextRoom;
         }
-        if(this.aCurrentRoom.aSouthExit != null){
-            System.out.print("south ");
+        else if(vDirection.equals("south")){
+            vNextRoom = aCurrentRoom.getExit("south");
+            if(vNextRoom == null){
+                System.out.println("There is no door !");
+                return;
+            }
+            this.aCurrentRoom = vNextRoom;
         }
-        if(this.aCurrentRoom.aWestExit != null){
-            System.out.print("west ");
+        else if(vDirection.equals("west")){
+            vNextRoom = aCurrentRoom.getExit("west");
+            if(vNextRoom == null){
+                System.out.println("There is no door !");
+                return;
+            }
+            this.aCurrentRoom = vNextRoom;
         }
-        if(this.aCurrentRoom.aEastExit != null){
-            System.out.print("east ");
+        else if(vDirection.equals("east")){
+            vNextRoom = aCurrentRoom.getExit("east");
+            if(vNextRoom == null){
+                System.out.println("There is no door !");
+                return;
+            }
+            this.aCurrentRoom = vNextRoom;
         }
-        
-        
+        */
+        // dans chaque condition : suppression de l'affichage de la CurrentRoom
+        // suppression du code qui nous permet d'accéder aux exits"
+        printLocationInfo();
+
     } // Game
 }

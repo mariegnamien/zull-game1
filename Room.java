@@ -6,14 +6,16 @@
  */
 public class Room
 {
-    private String aDescription = "";
-    public Room aNorthExit;
-    public Room aSouthExit;
-    public Room aWestExit;
-    public Room aEastExit;
+    private String aDescription;
+    private Room aNorthExit;
+    private Room aSouthExit;
+    private Room aWestExit;
+    private Room aEastExit;
+    
+    // existing methods unchanged
     
     public Room(final String pLieu){
-        this.aDescription += pLieu;
+        this.aDescription = pLieu;
     }// Room()
     
     public String getDescription(){
@@ -25,5 +27,21 @@ public class Room
         this.aSouthExit = pRoom2;
         this.aWestExit = pRoom3;
         this.aEastExit = pRoom4;
+    }
+    
+    public Room getExit(String direction){
+        if(direction.equals("north")){
+            return aNorthExit;
+        }
+        if (direction.equals("east")){
+            return aEastExit;
+        }
+        if(direction.equals("south")){
+            return aSouthExit;
+        }
+        if(direction.equals("west")){
+            return aWestExit;
+        }
+        return null;
     }
 } // Room
