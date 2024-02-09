@@ -12,8 +12,8 @@ public class Command
 
     /**
      * Constructeur naturel qui définit une commande en fonction des données entrées par l'utilisateur.
-     * @param String premier mot entré
-     * @param String second mot entré
+     * @param pWord1 premier mot entré
+     * @param pWord2 second mot entré
      */
     public Command(final String pWord1, final String pWord2){
         this.aCommandWord = pWord1;

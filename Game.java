@@ -61,7 +61,7 @@ public class Game
     /**
     *
     * Retourne un booléen en fonction de la commande entrée.
-    * @param Command Commande entrée par l'utilisateur.
+    * @param pWord Commande entrée par l'utilisateur.
     */
     private boolean quit(final Command pWord){
         if(pWord.hasSecondWord()) {
@@ -74,7 +74,7 @@ public class Game
     /**
     *
     * Retourne un booléen après traitement de la commande entrée par l'utilisateur.
-    * @param Command Commande entrée par l'utilisateur.
+    * @param pWord Commande entrée par l'utilisateur.
     */
     private boolean processCommand(final Command pWord){
         String vWord = pWord.getCommandWord();
@@ -161,7 +161,7 @@ public class Game
     /**
     *
     * Permet de se déplacer entre les différentes pièces du jeu.
-    * @param Command Commande entrée par l'utilisateur.
+    * @param pRoom Commande entrée par l'utilisateur.
     */
    
     private void goRoom(final Command pRoom){

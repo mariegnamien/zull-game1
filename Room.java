@@ -20,7 +20,7 @@ public class Room
     /**
     *
     * Crée une pièce avec une description particulière.
-    * @param String description de la pièce
+    * @param pDescription description de la pièce
     */
 
     public Room(final String pDescription){
@@ -40,8 +40,8 @@ public class Room
     /**
     *
     * Définit une des sorties de la pièce.
-    * @param String emplacement de la sortie de la pièce courante
-    * @param Room pièce en sortie 
+    * @param pDescription Emplacement de la sortie de la pièce courante.
+    * @param pExit pièce en sortie 
     */
     public void setExit(final String pDescription, final Room pExit){
         exits.put(pDescription,pExit);
@@ -50,10 +50,10 @@ public class Room
     /**
     *
     * Définit toutes les sorties de la pièce courante (Nord, Sud, Ouest, Est).
-    * @param Room pièce Nord
-    * @param Room pièce Sud
-    * @param Room pièce Ouest
-    * @param Room pièce Est
+    * @param pNorth pièce Nord
+    * @param pSouth pièce Sud
+    * @param pWest pièce Ouest
+    * @param pEast pièce Est
     */ 
     public void setExits(final Room pNorth, final Room pSouth,final Room pWest, final Room pEast){
         if(pNorth != null){
@@ -73,7 +73,7 @@ public class Room
     /**
     *
     * Retourne la sortie d'une pièce en fonction de la direction entrée.
-    * @param String direction
+    * @param pDirection direction
     */
     public Room getExit(String pDirection){
         return exits.get(pDirection);

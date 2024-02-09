@@ -10,7 +10,7 @@ public class CommandWords
     
     /**
      * Vérifie que la commande entrée appartient à celles acceptées.
-     * @param String Commande entrée par l'utilisateur.
+     * @param pWord Commande entrée par l'utilisateur.
      */
     public boolean isCommand(final String pWord){
         for(String element : aValidCommands){
