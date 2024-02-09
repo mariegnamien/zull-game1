@@ -5,7 +5,7 @@ import java.util.Set;
 /**
  * Classe Room - un lieu du jeu d'aventure Zuul.
  *
- * @author votre nom
+ * @author Gnamien Marie Emilienne 
  */
 public class Room
 {
@@ -17,20 +17,44 @@ public class Room
     private Room aEastExit;
     
     // existing methods unchanged
-    
+    /**
+    *
+    * Crée une pièce avec une description particulière.
+    * @param String description de la pièce
+    */
+
     public Room(final String pDescription){
         this.aDescription = pDescription;
         exits = new HashMap<String,Room>();
     }// Room()
     
+    /**
+    *
+    * Retourne la description d'une pièce.
+    * 
+    */
     public String getDescription(){
         return aDescription;
     }
-    
+
+    /**
+    *
+    * Définit une des sorties de la pièce.
+    * @param String emplacement de la sortie de la pièce courante
+    * @param Room pièce en sortie 
+    */
     public void setExit(final String pDescription, final Room pExit){
         exits.put(pDescription,pExit);
     }
     
+    /**
+    *
+    * Définit toutes les sorties de la pièce courante (Nord, Sud, Ouest, Est).
+    * @param Room pièce Nord
+    * @param Room pièce Sud
+    * @param Room pièce Ouest
+    * @param Room pièce Est
+    */ 
     public void setExits(final Room pNorth, final Room pSouth,final Room pWest, final Room pEast){
         if(pNorth != null){
             exits.put("north", pNorth);
@@ -45,21 +69,30 @@ public class Room
             exits.put("east",pEast);
         }
     }
-    
+
+    /**
+    *
+    * Retourne la sortie d'une pièce en fonction de la direction entrée.
+    * @param String direction
+    */
     public Room getExit(String pDirection){
         return exits.get(pDirection);
     }
    
+    /**
+    *
+    * Retourne l'ensemble des sorties d'une pièce.
+    *
+    */
+   
     public String getExitString(){
-        String vExits = "";
+        String vExits = "Exits:";
         Set<String> ensembleDesSorties = exits.keySet();
         for(String vKeys : ensembleDesSorties){
-            if(exits.get(vKeys) != null){
-            vExits += exits.get(vKeys);
+            vExits += " " + vKeys;
         }
-    }
-        //vExits += this.aNorthExit +" "+ this.aSouthExit + " " +this.aEastExit + " " + this.aWestExit;
         return vExits;
+        //vExits += this.aNorthExit +" "+ this.aSouthExit + " " +this.aEastExit + " " + this.aWestExit;
     }
 
 } // Room

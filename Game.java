@@ -7,7 +7,12 @@ public class Game
 {
     private Room aCurrentRoom;
     private Parser aParser;
-    
+
+    /**
+    *
+    * Affiche la pièce actuelle et les sorties possibles.
+    * 
+    */
     private void printLocationInfo(){
     System.out.println("You are "+ this.aCurrentRoom.getDescription());
     System.out.print("Exits : ");
@@ -26,7 +31,12 @@ public class Game
         }
         System.out.println();
     }
-    
+
+    /**
+    *
+    * Affiche le message de bienvenue dès le lancement du jeu.
+    *
+    */
     private void printWelcome(){
     System.out.println("Welcome to the World of Zuul!"); 
     System.out.println("World of Zuul is a new, incredibly boring adventure game.");
@@ -35,7 +45,10 @@ public class Game
     printLocationInfo();
     
     }
-
+    /**
+    *
+    * Affiche le message d'aide.
+    */
     private void printHelp(){
     System.out.println("");
     System.out.println("You are lost. You are alone.");
@@ -44,7 +57,12 @@ public class Game
     System.out.println("Your command words are:");
     System.out.println("  go quit help");
     }
-    
+
+    /**
+    *
+    * Retourne un booléen en fonction de la commande entrée.
+    * @param Command Commande entrée par l'utilisateur.
+    */
     private boolean quit(final Command pWord){
         if(pWord.hasSecondWord()) {
             System.out.println("Quit what ?");
@@ -53,6 +71,11 @@ public class Game
         return true;
     }
     
+    /**
+    *
+    * Retourne un booléen après traitement de la commande entrée par l'utilisateur.
+    * @param Command Commande entrée par l'utilisateur.
+    */
     private boolean processCommand(final Command pWord){
         String vWord = pWord.getCommandWord();
     
@@ -80,11 +103,18 @@ public class Game
         
     }
     
+    /**
+    * Constructeur du jeu où les pièces sont créées.
+    */
     public Game() {
         createRooms();
         this.aParser = new Parser();
     }
     
+    /**
+    *
+    * Démarre le jeu et contrôle son arrêt.
+    */
     public void play() {
         boolean vFinished = false;
         this.printWelcome();
@@ -95,6 +125,10 @@ public class Game
         System.out.println("Thank you for playing. Good bye.");
     }// play()
     
+    /**
+    *
+    * Création de toutes les pièces du jeu.
+    */
     private void createRooms() {
         Room vGroceryStore = new Room("in grandpa's grocery store");
         Room vStreet1 = new Room("in the first street");
@@ -109,14 +143,14 @@ public class Game
         Room vSecretBasement = new Room("in the secret basement");
         
         
-        vGroceryStore.setExits(vStreet2,vRoom,vStreet1,vStreet3); // rajouter plus tard une seconde entrée pour le sous sol
-        vStreet1.setExits(null,null,vGroceryStore,vBricABrac);
+        vGroceryStore.setExits(vStreet2,vRoom,vStreet1,vStreet3); // rajouter plus tard une entrée pour le sous sol (basement)
+        vStreet1.setExits(vBricABrac,null,null,vGroceryStore);
         vStreet2.setExits(null,vGroceryStore,null,null);
         vStreet3.setExits(null,vTrainStation,vGroceryStore,null);
         vRoom.setExits(vGroceryStore,null,null,null);
         vBasement.setExits(null,null,null,vSecretWorkShop); // escalier vers le bas
         vSecretWorkShop.setExits(null,null,vBasement,null);
-        vBricABrac.setExits(null,null,vStreet1,null);
+        vBricABrac.setExits(null,vStreet1,null,null);
         vTrainStation.setExits(vStreet3,vPlatform,null,null);
         vPlatform.setExits(vTrainStation,null,null,vSecretBasement);
         vSecretBasement.setExits(null,null,vPlatform,null);
@@ -124,7 +158,12 @@ public class Game
         this.aCurrentRoom = vGroceryStore;
     }
     
-
+    /**
+    *
+    * Permet de se déplacer entre les différentes pièces du jeu.
+    * @param Command Commande entrée par l'utilisateur.
+    */
+   
     private void goRoom(final Command pRoom){
         Room vNextRoom = null;
         String vDirection = pRoom.getSecondWord();
@@ -145,6 +184,7 @@ public class Game
         else{
             System.out.println("Unknown direction !");
         }
+        printLocationInfo();
             /*
         if(vDirection.equals("north")){
             vNextRoom = aCurrentRoom.getExit("north");
@@ -181,7 +221,6 @@ public class Game
         */
         // dans chaque condition : suppression de l'affichage de la CurrentRoom
         // suppression du code qui nous permet d'accéder aux exits"
-        printLocationInfo();
 
     } // Game
 }
