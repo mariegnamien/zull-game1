@@ -14,22 +14,7 @@ public class Game
     * 
     */
     private void printLocationInfo(){
-    System.out.println("You are "+ this.aCurrentRoom.getDescription());
-    System.out.print("Exits : ");
-    
-        if(aCurrentRoom.getExit("north") != null){
-            System.out.print("north ");
-        }
-        if(aCurrentRoom.getExit("south") != null){
-            System.out.print("south ");
-        }
-        if(aCurrentRoom.getExit("west") != null){
-            System.out.print("west ");
-        }
-        if(aCurrentRoom.getExit("east") != null){
-            System.out.print("east ");
-        }
-        System.out.println();
+        System.out.println(aCurrentRoom.getLongDescription());
     }
 
     /**
@@ -55,7 +40,7 @@ public class Game
     System.out.println("You wander around at the university");
     System.out.println("");
     System.out.println("Your command words are:");
-    System.out.println("  go quit help");
+    aParser.commandList();
     }
 
     /**
@@ -71,6 +56,17 @@ public class Game
         return true;
     }
     
+    /** Affiche la description de la pièce courante et ses sorties.
+     * 
+     */
+    private void look(){
+        System.out.println(aCurrentRoom.getLongDescription());
+    }
+    
+    private void eat(){
+        System.out.println("You have eaten now and you are not hungry any more.");
+    }
+    
     /**
     *
     * Retourne un booléen après traitement de la commande entrée par l'utilisateur.
@@ -78,7 +74,6 @@ public class Game
     */
     private boolean processCommand(final Command pWord){
         String vWord = pWord.getCommandWord();
-    
         if(pWord.isUnknown()) {
             System.out.println("I don't know what you mean ?");
             return false;
@@ -91,7 +86,14 @@ public class Game
             goRoom(pWord);
             return false;
         }
-        
+        else if(vWord.equals("look")){
+            look();
+            return false;
+        }
+        else if(vWord.equals("eat")){
+            eat();
+            return false;
+        }
         else if (vWord.equals("quit")){
             return quit(pWord);
         }

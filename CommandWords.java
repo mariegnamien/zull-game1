@@ -6,7 +6,7 @@
  */
 public class CommandWords
 {
-    private final String[] aValidCommands = {"go","quit","help"};
+    private final String[] aValidCommands = {"go","quit","help","look","eat"};
     
     /**
      * Vérifie que la commande entrée appartient à celles acceptées.
@@ -19,5 +19,16 @@ public class CommandWords
             }
         }
         return false;
+    }
+    
+    /**
+     * Affiche toutes les commandes valides.
+     */
+    public String getCommandList(){
+        String vList = "";
+        for(String command : aValidCommands){
+            vList += command + " ";
+        }
+        return vList;
     }
 }
