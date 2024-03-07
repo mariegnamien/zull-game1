@@ -63,7 +63,7 @@ public class Parser
             return new Command( vWord1, vWord2 );
         }
         else {
-            return new Command( null, null ); 
+            return new Command( null, vWord2 ); 
         }
         
         /**
@@ -71,7 +71,7 @@ public class Parser
          */
 
     } // getCommand()
-    public void commandList(){
-        System.out.println(aValidCommands.getCommandList());
+    public String getCommandString(){
+        return this.aValidCommands.getCommandList();
     }// showCommands()
 } // Parser

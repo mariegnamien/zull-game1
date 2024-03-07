@@ -10,7 +10,7 @@ import java.util.Set;
 public class Room
 {
     private String aDescription;
-    private HashMap<String, Room> exits;
+    private HashMap<String, Room> aExits;
     private Room aNorthExit;
     private Room aSouthExit;
     private Room aWestExit;
@@ -25,7 +25,7 @@ public class Room
 
     public Room(final String pDescription){
         this.aDescription = pDescription;
-        exits = new HashMap<String,Room>();
+        this.aExits = new HashMap<String,Room>();
     }// Room()
     
     /**
@@ -34,7 +34,7 @@ public class Room
     * 
     */
     public String getDescription(){
-        return aDescription;
+        return this.aDescription;
     }
 
     /**
@@ -44,7 +44,7 @@ public class Room
     * @param pExit pièce en sortie 
     */
     public void setExit(final String pDescription, final Room pExit){
-        exits.put(pDescription,pExit);
+        aExits.put(pDescription,pExit);
     }
     
     /**
@@ -57,16 +57,16 @@ public class Room
     */ 
     public void setExits(final Room pNorth, final Room pSouth,final Room pWest, final Room pEast){
         if(pNorth != null){
-            exits.put("north", pNorth);
+            aExits.put("north", pNorth);
         }
         if(pSouth != null){
-            exits.put("south",pSouth);
+            aExits.put("south",pSouth);
         }
         if(pWest != null){
-            exits.put("west", pWest);
+            aExits.put("west", pWest);
         }
         if(pEast != null){
-            exits.put("east",pEast);
+            aExits.put("east",pEast);
         }
     }
 
@@ -76,7 +76,7 @@ public class Room
     * @param pDirection direction
     */
     public Room getExit(String pDirection){
-        return exits.get(pDirection);
+        return aExits.get(pDirection);
     }
    
     /**
@@ -87,7 +87,7 @@ public class Room
    
     public String getExitString(){
         String vExits = "Exits:";
-        Set<String> ensembleDesSorties = exits.keySet();
+        Set<String> ensembleDesSorties = aExits.keySet();
         for(String vKeys : ensembleDesSorties){
             vExits += " " + vKeys;
         }

@@ -8,6 +8,9 @@ public class CommandWords
 {
     private final String[] aValidCommands = {"go","quit","help","look","eat"};
     
+    public CommandWords(){
+        
+    }
     /**
      * Vérifie que la commande entrée appartient à celles acceptées.
      * @param pWord Commande entrée par l'utilisateur.

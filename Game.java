@@ -9,6 +9,62 @@ public class Game
     private Parser aParser;
 
     /**
+    * Constructeur du jeu où les pièces sont créées.
+    */
+    public Game() {
+        createRooms();
+        this.aParser = new Parser();
+    }
+    
+    /**
+    *
+    * Création de toutes les pièces du jeu.
+    */
+    private void createRooms() {
+        Room vConvenienceStore = new Room("at grandpa's convenience store");
+        Room vStreet1 = new Room("in the first street");
+        Room vStreet2 = new Room("in the Second street");
+        Room vStreet3 = new Room("in the Third street");
+        Room vRoom = new Room("in her room");
+        Room vBasement = new Room("in the basement");
+        Room vSecretWorkShop = new Room("at the Secret workshop");
+        Room vBricABrac = new Room("at the bric-a-brac");
+        Room vTrainStation = new Room("at the Train Station");
+        Room vPlatform = new Room("on the Platform");
+        Room vSecretBasement = new Room("at the secret basement");
+        
+        
+        vConvenienceStore.setExits(vStreet2,vRoom,vStreet1,vStreet3); // rajouter plus tard une entrée pour le sous sol (basement)
+        vStreet1.setExits(vBricABrac,null,null,vConvenienceStore);
+        vStreet2.setExits(null,vConvenienceStore,null,null);
+        vStreet3.setExits(null,vTrainStation,vConvenienceStore,null);
+        vRoom.setExits(vConvenienceStore,null,null,null);
+        vBasement.setExits(null,null,null,vSecretWorkShop); // escalier vers le bas
+        vSecretWorkShop.setExits(null,null,vBasement,null);
+        vBricABrac.setExits(null,vStreet1,null,null);
+        vTrainStation.setExits(vStreet3,vPlatform,null,null);
+        vPlatform.setExits(vTrainStation,null,null,vSecretBasement);
+        vSecretBasement.setExits(null,null,vPlatform,null);
+        
+        this.aCurrentRoom = vConvenienceStore;
+    }
+    
+    /**
+    *
+    * Démarre le jeu et contrôle son arrêt.
+    */
+    public void play() {
+        boolean vFinished = false;
+        this.printWelcome();
+        while(vFinished == false){
+            Command vCommand = this.aParser.getCommand();
+            vFinished = this.processCommand(vCommand);
+        }
+        System.out.println("Thank you for playing. Good bye.");
+    }// play()
+    
+
+    /**
     *
     * Affiche la pièce actuelle et les sorties possibles.
     * 
@@ -23,10 +79,12 @@ public class Game
     *
     */
     private void printWelcome(){
-    System.out.println("Welcome to the World of Zuul!"); 
-    System.out.println("World of Zuul is a new, incredibly boring adventure game.");
+    System.out.println("                   Welcome to 3417.");
+    System.out.println();
+    System.out.println("Another day in this boring place..."); 
+    System.out.println("Grandpa asked me to help with stuff at the store today.");
     System.out.println("Type 'help' if you need help."); 
-    System.out.println("");
+    System.out.println();
     printLocationInfo();
     
     }
@@ -36,11 +94,11 @@ public class Game
     */
     private void printHelp(){
     System.out.println("");
-    System.out.println("You are lost. You are alone.");
-    System.out.println("You wander around at the university");
+    System.out.println("You are in the dairy section. The temperature is cool around you.");
+    System.out.println("You are arranging yogurts in this section...");
     System.out.println("");
     System.out.println("Your command words are:");
-    aParser.commandList();
+    System.out.println(aParser.getCommandString());
     }
 
     /**
@@ -106,61 +164,6 @@ public class Game
     }
     
     /**
-    * Constructeur du jeu où les pièces sont créées.
-    */
-    public Game() {
-        createRooms();
-        this.aParser = new Parser();
-    }
-    
-    /**
-    *
-    * Démarre le jeu et contrôle son arrêt.
-    */
-    public void play() {
-        boolean vFinished = false;
-        this.printWelcome();
-        while(vFinished == false){
-            Command vCommand = this.aParser.getCommand();
-            vFinished = this.processCommand(vCommand);
-        }
-        System.out.println("Thank you for playing. Good bye.");
-    }// play()
-    
-    /**
-    *
-    * Création de toutes les pièces du jeu.
-    */
-    private void createRooms() {
-        Room vGroceryStore = new Room("in grandpa's grocery store");
-        Room vStreet1 = new Room("in the first street");
-        Room vStreet2 = new Room("in the Second street");
-        Room vStreet3 = new Room("in the Third street");
-        Room vRoom = new Room("in her room");
-        Room vBasement = new Room("in the basement");
-        Room vSecretWorkShop = new Room("in the Secret workshop");
-        Room vBricABrac = new Room("at the bric-a-brac");
-        Room vTrainStation = new Room("at the Train Station");
-        Room vPlatform = new Room("on the Platform");
-        Room vSecretBasement = new Room("in the secret basement");
-        
-        
-        vGroceryStore.setExits(vStreet2,vRoom,vStreet1,vStreet3); // rajouter plus tard une entrée pour le sous sol (basement)
-        vStreet1.setExits(vBricABrac,null,null,vGroceryStore);
-        vStreet2.setExits(null,vGroceryStore,null,null);
-        vStreet3.setExits(null,vTrainStation,vGroceryStore,null);
-        vRoom.setExits(vGroceryStore,null,null,null);
-        vBasement.setExits(null,null,null,vSecretWorkShop); // escalier vers le bas
-        vSecretWorkShop.setExits(null,null,vBasement,null);
-        vBricABrac.setExits(null,vStreet1,null,null);
-        vTrainStation.setExits(vStreet3,vPlatform,null,null);
-        vPlatform.setExits(vTrainStation,null,null,vSecretBasement);
-        vSecretBasement.setExits(null,null,vPlatform,null);
-        
-        this.aCurrentRoom = vGroceryStore;
-    }
-    
-    /**
     *
     * Permet de se déplacer entre les différentes pièces du jeu.
     * @param pRoom Commande entrée par l'utilisateur.
@@ -169,8 +172,6 @@ public class Game
     private void goRoom(final Command pRoom){
         Room vNextRoom = null;
         String vDirection = pRoom.getSecondWord();
-        String vDirections = "";
-
         if (!pRoom.hasSecondWord()){
                 System.out.println("Go where ?");
                 return;
@@ -187,42 +188,5 @@ public class Game
             System.out.println("Unknown direction !");
         }
         printLocationInfo();
-            /*
-        if(vDirection.equals("north")){
-            vNextRoom = aCurrentRoom.getExit("north");
-            if(vNextRoom == null){
-                System.out.println("There is no door !");
-                return;
-            }
-            this.aCurrentRoom = vNextRoom;
-        }
-        else if(vDirection.equals("south")){
-            vNextRoom = aCurrentRoom.getExit("south");
-            if(vNextRoom == null){
-                System.out.println("There is no door !");
-                return;
-            }
-            this.aCurrentRoom = vNextRoom;
-        }
-        else if(vDirection.equals("west")){
-            vNextRoom = aCurrentRoom.getExit("west");
-            if(vNextRoom == null){
-                System.out.println("There is no door !");
-                return;
-            }
-            this.aCurrentRoom = vNextRoom;
-        }
-        else if(vDirection.equals("east")){
-            vNextRoom = aCurrentRoom.getExit("east");
-            if(vNextRoom == null){
-                System.out.println("There is no door !");
-                return;
-            }
-            this.aCurrentRoom = vNextRoom;
-        }
-        */
-        // dans chaque condition : suppression de l'affichage de la CurrentRoom
-        // suppression du code qui nous permet d'accéder aux exits"
-
     } // Game
 }
