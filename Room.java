@@ -1,4 +1,3 @@
- 
 import java.util.HashMap;
 import java.util.Set;
 
@@ -15,17 +14,18 @@ public class Room
     private Room aSouthExit;
     private Room aWestExit;
     private Room aEastExit;
+    private String aImageName;
     
-    // existing methods unchanged
     /**
     *
     * Crée une pièce avec une description particulière.
     * @param pDescription description de la pièce
     */
 
-    public Room(final String pDescription){
+    public Room(final String pDescription, final String pImage){
         this.aDescription = pDescription;
         this.aExits = new HashMap<String,Room>();
+        this.aImageName = pImage;
     }// Room()
     
     /**
@@ -44,30 +44,7 @@ public class Room
     * @param pExit pièce en sortie 
     */
     public void setExit(final String pDescription, final Room pExit){
-        aExits.put(pDescription,pExit);
-    }
-    
-    /**
-    *
-    * Définit toutes les sorties de la pièce courante (Nord, Sud, Ouest, Est).
-    * @param pNorth pièce Nord
-    * @param pSouth pièce Sud
-    * @param pWest pièce Ouest
-    * @param pEast pièce Est
-    */ 
-    public void setExits(final Room pNorth, final Room pSouth,final Room pWest, final Room pEast){
-        if(pNorth != null){
-            aExits.put("north", pNorth);
-        }
-        if(pSouth != null){
-            aExits.put("south",pSouth);
-        }
-        if(pWest != null){
-            aExits.put("west", pWest);
-        }
-        if(pEast != null){
-            aExits.put("east",pEast);
-        }
+        this.aExits.put(pDescription,pExit);
     }
 
     /**
@@ -76,7 +53,7 @@ public class Room
     * @param pDirection direction
     */
     public Room getExit(String pDirection){
-        return aExits.get(pDirection);
+        return this.aExits.get(pDirection);
     }
    
     /**
@@ -86,12 +63,11 @@ public class Room
     */
    
     public String getExitString(){
-        String vExits = "Exits:";
-        Set<String> ensembleDesSorties = aExits.keySet();
-        for(String vKeys : ensembleDesSorties){
-            vExits += " " + vKeys;
+        StringBuilder returnString = new StringBuilder( "Exits:" );
+        for(String vKeys : this.aExits.keySet()){
+            returnString.append( " " + vKeys );
         }
-        return vExits;
+        return returnString.toString();
     }
     
     /**
@@ -102,5 +78,9 @@ public class Room
      */
     public String getLongDescription(){
         return "You are " + this.aDescription + ".\n" + getExitString();
+    }
+    
+    public String getImageName(){
+        return this.aImageName;
     }
 } // Room
