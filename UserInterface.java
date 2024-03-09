@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
-
+import javax.swing.JButton;
 
 import java.awt.Dimension;
 import java.awt.BorderLayout;
@@ -32,7 +32,8 @@ public class UserInterface implements ActionListener
     private JTextField aEntryField;
     private JTextArea  aLog;
     private JLabel     aImage;
-
+    private JButton aButton;
+    
     /**
      * Construct a UserInterface. As a parameter, a Game Engine
      * (an object processing and executing the game commands) is
@@ -100,15 +101,21 @@ public class UserInterface implements ActionListener
      */
     private void createGUI()
     {
-        this.aMyFrame = new JFrame( "No title !?" ); // change the title !
+        this.aMyFrame = new JFrame( "3417." );
         this.aEntryField = new JTextField( 34 );
-
+        this.aEntryField.enable(false);
+        
         this.aLog = new JTextArea();
         this.aLog.setEditable( false );
         JScrollPane vListScroller = new JScrollPane( this.aLog );
         vListScroller.setPreferredSize( new Dimension(200, 200) );
         vListScroller.setMinimumSize( new Dimension(100,100) );
+        
+        this.aButton = new JButton("start!");
+        
+        aMyFrame.add(this.aButton,BorderLayout.EAST);
 
+        
         this.aImage = new JLabel();
 
         JPanel vPanel = new JPanel();
@@ -121,7 +128,8 @@ public class UserInterface implements ActionListener
 
         // add some event listeners to some components
         this.aEntryField.addActionListener( this );
-
+        this.aButton.addActionListener(this);
+        
         // to end program when window is closed
         this.aMyFrame.addWindowListener(
             new WindowAdapter() { // anonymous class
@@ -142,6 +150,11 @@ public class UserInterface implements ActionListener
     @Override public void actionPerformed( final ActionEvent pE ) 
     {
         // no need to check the type of action at the moment
+        if(pE.getSource() == this.aButton){
+            aMyFrame.remove(aButton);
+            this.aEntryField.enable(true);
+            this.aEntryField.setText( "start!" );
+        }
         // because there is only one possible action (text input) :
         this.processCommand(); // never suppress this line
     } // actionPerformed(.)
@@ -154,7 +167,7 @@ public class UserInterface implements ActionListener
     {
         String vInput = this.aEntryField.getText();
         this.aEntryField.setText( "" );
-
+        
         this.aEngine.interpretCommand( vInput );
     } // processCommand()
 } // UserInterface 

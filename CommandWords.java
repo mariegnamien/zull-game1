@@ -6,7 +6,7 @@
  */
 public class CommandWords
 {
-    private final String[] aValidCommands = {"go","quit","help","look","eat"};
+    private final String[] aValidCommands = {"go","quit","help","look","eat","start!"};
     
     public CommandWords(){
         

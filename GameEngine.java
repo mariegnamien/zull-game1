@@ -42,12 +42,13 @@ public class GameEngine
     */
     private void printWelcome(){
     this.aGui.print("\n");
-    this.aGui.println("                   Welcome to 3417.");
+    this.aGui.println("Welcome to 3417.");
+    this.aGui.print("\n");
     this.aGui.println("Another day in this boring place..."); 
     this.aGui.println("Grandpa asked me to help with stuff at the store today.");
+    this.aGui.println("\n");
     this.aGui.println("Type 'help' if you need help."); 
     this.aGui.print("\n");
-    this.printLocationInfo();
     if(this.aCurrentRoom.getImageName() != null){
         this.aGui.showImage(this.aCurrentRoom.getImageName());
     }
@@ -59,19 +60,25 @@ public class GameEngine
     * Création de toutes les pièces du jeu.
     */
     private void createRooms() {
-        Room vConvenienceStore = new Room("at grandpa's convenience store","convienencestore");
-        Room vStreet1 = new Room("in the first street","street1");
-        Room vStreet2 = new Room("in the Second street","street2");
-        Room vStreet3 = new Room("in the Third street","street3");
-        Room vRoom = new Room("in her room","bedroom");
-        Room vBasement = new Room("in the basement","basement");
-        Room vSecretWorkShop = new Room("at the Secret workshop","secretworkshop");
-        Room vBricABrac = new Room("at the bric-a-brac","bricabrac");
-        Room vTrainStation = new Room("at the Train Station","trainstation");
-        Room vPlatform = new Room("on the Platform","platform");
-        Room vSecretBasement = new Room("at the secret basement","secretbasement");
+        Room vConvenienceStore = new Room("at grandpa's convenience store","conveniencestore.jpg");
+        Room vStreet1 = new Room("in the first street","street1.jpg");
+        Room vStreet2 = new Room("in the Second street","street2.jpg");
+        Room vStreet3 = new Room("in the Third street","street3.jpg");
+        Room vRoom = new Room("in her room","bedroom.jpg");
+        Room vBasement = new Room("in the basement","basement.jpg");
+        Room vSecretWorkShop = new Room("at the Secret workshop","secretworkshop.jpg");
+        Room vBricABrac = new Room("at the bric-a-brac","bricabrac.jpg");
+        Room vTrainStation = new Room("at the Train Station","trainstation.jpg");
+        Room vPlatform = new Room("on the Platform","platform.jpg");
+        Room vSecretBasement = new Room("at the secret basement","secretbasement.jpg");
         
-        vConvenienceStore.setExit("north",vStreet2);// rajouter plus tard une entrée pour le sous sol (basement)
+        //Item vBroom = new Item("a dusty and old broom.", 700);
+        
+        //vBasement.setItem(vBroom);
+
+        
+        vConvenienceStore.setExit("north",vStreet2);
+        vConvenienceStore.setExit("down", vBasement);
         vConvenienceStore.setExit("south",vRoom);
         vConvenienceStore.setExit("west",vStreet1);
         vConvenienceStore.setExit("east",vStreet3);
@@ -100,8 +107,10 @@ public class GameEngine
         vBasement.setExit("north", null);
         vBasement.setExit("south", null);
         vBasement.setExit("west", null);
-        vBasement.setExit("east", vSecretWorkShop); // escalier vers le bas
- 
+        vBasement.setExit("up",vConvenienceStore);
+        vBasement.setExit("east", vSecretWorkShop);
+        
+        
         vSecretWorkShop.setExit("north", null);
         vSecretWorkShop.setExit("south", null);
         vSecretWorkShop.setExit("west", vBasement);
@@ -131,11 +140,11 @@ public class GameEngine
     }
     
         private void look(){
-        System.out.println(aCurrentRoom.getLongDescription());
+        this.aGui.println(aCurrentRoom.getLongDescription());
     }
     
     private void eat(){
-        System.out.println("You have eaten now and you are not hungry any more.");
+        this.aGui.println("You have eaten now and you are not hungry any more.");
     }
     
         /**
@@ -146,9 +155,9 @@ public class GameEngine
         public void interpretCommand(final String pWord){
         this.aGui.println( "> " + pWord );
         Command vCommand = this.aParser.getCommand(pWord);
-
+        
         if(vCommand.isUnknown()) {
-            System.out.println("I don't know what you mean ?");
+            this.aGui.println("I don't know what you mean ?");
         }
         
         String vCommandWord = vCommand.getCommandWord();
@@ -161,10 +170,13 @@ public class GameEngine
         }
         else if(vCommandWord.equals("look")){
             this.look();
-
         }
         else if(vCommandWord.equals("eat")){
             this.eat();
+        }
+        
+        else if(vCommandWord.equals("start!")){
+            printLocationInfo();
         }
         else if (vCommandWord.equals("quit")){
             if ( vCommand.hasSecondWord() ){
@@ -178,7 +190,6 @@ public class GameEngine
         else{
             this.aGui.println("Erreur du programmeur : commande non reconnue !");
         }
-        this.printLocationInfo();
     }
     
         /**
@@ -203,7 +214,7 @@ public class GameEngine
         Room vNextRoom = null;
         String vDirection = pRoom.getSecondWord();
         if (!pRoom.hasSecondWord()){
-                System.out.println("Go where ?");
+                this.aGui.println("Go where ?");
                 return;
             }
         vNextRoom = aCurrentRoom.getExit(vDirection);
@@ -215,11 +226,11 @@ public class GameEngine
             }
         }
         else if(vNextRoom == null){
-            System.out.println("There is no door !");
+            this.aGui.println("There is no path!");
             return;
         }
         else{
-            System.out.println("Unknown direction !");
+            this.aGui.println("Unknown direction !");
         }
     } // Game
     

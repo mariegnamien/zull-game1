@@ -10,11 +10,8 @@ public class Room
 {
     private String aDescription;
     private HashMap<String, Room> aExits;
-    private Room aNorthExit;
-    private Room aSouthExit;
-    private Room aWestExit;
-    private Room aEastExit;
     private String aImageName;
+    //private Item aItem;
     
     /**
     *
@@ -65,11 +62,28 @@ public class Room
     public String getExitString(){
         StringBuilder returnString = new StringBuilder( "Exits:" );
         for(String vKeys : this.aExits.keySet()){
+            if(aExits.get(vKeys) != null){
             returnString.append( " " + vKeys );
+        }
         }
         return returnString.toString();
     }
+    /*
+    public String getItemString(){
+        String vReturn = "";
+        if(this.aItem.getItemDescription() != null){
+            vReturn += this.aItem.getItemDescription();
+        }
+        else{
+            vReturn = "No item here.";
+        }
+        return vReturn;
+    }
     
+    public void setItem(final Item pItem){
+        this.aItem = pItem;
+    }
+    */
     /**
      * Retourne une longue description de cette "room", de la forme 
      *          You are in the kitchen
@@ -77,10 +91,11 @@ public class Room
      * @return A description of the room, including exits. 
      */
     public String getLongDescription(){
-        return "You are " + this.aDescription + ".\n" + getExitString();
+        return "You are " + this.aDescription + ".\n" + getExitString(); //getItemString();
     }
     
     public String getImageName(){
         return this.aImageName;
     }
+
 } // Room
