@@ -72,9 +72,9 @@ public class GameEngine
         Room vPlatform = new Room("on the Platform","platform.jpg");
         Room vSecretBasement = new Room("at the secret basement","secretbasement.jpg");
         
-        //Item vBroom = new Item("a dusty and old broom.", 700);
+        Item vBroom = new Item("broom","a dusty and old broom.", 700);
         
-        //vBasement.setItem(vBroom);
+        vBasement.addItem("broom",vBroom);
 
         
         vConvenienceStore.setExit("north",vStreet2);
@@ -158,13 +158,15 @@ public class GameEngine
         
         if(vCommand.isUnknown()) {
             this.aGui.println("I don't know what you mean ?");
+            return;
         }
         
         String vCommandWord = vCommand.getCommandWord();
-        
+    
         if(vCommandWord.equals("help")){
             this.printHelp();
         }
+
         else if(vCommandWord.equals("go")){
             this.goRoom(vCommand);
         }
@@ -176,8 +178,9 @@ public class GameEngine
         }
         
         else if(vCommandWord.equals("start!")){
-            printLocationInfo();
+            this.printLocationInfo();
         }
+        
         else if (vCommandWord.equals("quit")){
             if ( vCommand.hasSecondWord() ){
                 this.aGui.println( "Quit what?" );
@@ -199,7 +202,8 @@ public class GameEngine
     private void printHelp(){
     this.aGui.println("");
     this.aGui.println("You are in the dairy section. The temperature is cool around you.");
-    this.aGui.println("You are arranging yogurts in this section..." + "\n");
+    this.aGui.println("You are arranging yogurts in this section...");
+    this.aGui.println("");
     this.aGui.println("Your command words are:");
     this.aGui.println(this.aParser.getCommandString());
     }

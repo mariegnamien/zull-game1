@@ -11,7 +11,7 @@ public class Room
     private String aDescription;
     private HashMap<String, Room> aExits;
     private String aImageName;
-    //private Item aItem;
+    private HashMap<String,Item> aItems;
     
     /**
     *
@@ -22,6 +22,7 @@ public class Room
     public Room(final String pDescription, final String pImage){
         this.aDescription = pDescription;
         this.aExits = new HashMap<String,Room>();
+        this.aItems = new HashMap<String,Item>();
         this.aImageName = pImage;
     }// Room()
     
@@ -60,7 +61,7 @@ public class Room
     */
    
     public String getExitString(){
-        StringBuilder returnString = new StringBuilder( "Exits:" );
+        StringBuilder returnString = new StringBuilder( "Exits :" );
         for(String vKeys : this.aExits.keySet()){
             if(aExits.get(vKeys) != null){
             returnString.append( " " + vKeys );
@@ -68,22 +69,35 @@ public class Room
         }
         return returnString.toString();
     }
-    /*
-    public String getItemString(){
-        String vReturn = "";
-        if(this.aItem.getItemDescription() != null){
-            vReturn += this.aItem.getItemDescription();
-        }
-        else{
-            vReturn = "No item here.";
-        }
-        return vReturn;
+    
+    public void addItem(final String pNom, final Item pItem){
+        this.aItems.put(pNom,pItem);
     }
     
-    public void setItem(final Item pItem){
-        this.aItem = pItem;
-    }
-    */
+    public String getItemString(){
+        StringBuilder vReturn = new StringBuilder("Items : ");
+        if(this.aItems.keySet().size() == 0){
+            return "No Items here...";
+        }
+        
+        for(String nom : this.aItems.keySet()){
+            vReturn.append(this.aItems.get(nom).getItemDescription());
+        }
+        return vReturn.toString();
+        }
+    
+        /*
+        StringBuilder vReturn = new StringBuilder ("Item : ");
+        if(this.aDescription != null){
+            vReturn.append(this.aDescription);
+        }
+        else{
+            return ("No Item here");
+        }
+        return vReturn.toString();
+        */
+    
+    
     /**
      * Retourne une longue description de cette "room", de la forme 
      *          You are in the kitchen
@@ -91,7 +105,7 @@ public class Room
      * @return A description of the room, including exits. 
      */
     public String getLongDescription(){
-        return "You are " + this.aDescription + ".\n" + getExitString(); //getItemString();
+        return "You are " + this.aDescription + ".\n" + this.getExitString() + "\n" + this.getItemString();
     }
     
     public String getImageName(){

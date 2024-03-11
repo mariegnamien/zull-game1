@@ -115,7 +115,6 @@ public class UserInterface implements ActionListener
         
         aMyFrame.add(this.aButton,BorderLayout.EAST);
 
-        
         this.aImage = new JLabel();
 
         JPanel vPanel = new JPanel();
@@ -149,11 +148,10 @@ public class UserInterface implements ActionListener
      */
     @Override public void actionPerformed( final ActionEvent pE ) 
     {
-        // no need to check the type of action at the moment
         if(pE.getSource() == this.aButton){
             aMyFrame.remove(aButton);
-            this.aEntryField.enable(true);
             this.aEntryField.setText( "start!" );
+            this.aEntryField.enable(true);
         }
         // because there is only one possible action (text input) :
         this.processCommand(); // never suppress this line
