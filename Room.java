@@ -81,7 +81,7 @@ public class Room
         }
         
         for(String nom : this.aItems.keySet()){
-            vReturn.append(this.aItems.get(nom).getItemDescription());
+            vReturn.append(this.aItems.get(nom).getItemDescription() + "; ");
         }
         return vReturn.toString();
         }

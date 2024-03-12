@@ -12,9 +12,12 @@ public class Item
    private String aNom;
    
    public Item(final String pNom,final String pDescription, final int pWeight){
-       this.aNom = pNom;
        this.aDescription = pDescription;
        this.aWeight = pWeight;
+   }
+   
+   public void setItemName(final String pName){
+       this.aNom = pName;
    }
    
    public String getItemName(){

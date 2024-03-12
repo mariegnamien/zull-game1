@@ -10,7 +10,7 @@ public class GameEngine
     private UserInterface aGui;
     private Parser aParser;
     private Room aCurrentRoom;
-    
+    private Room aPreviousRoom;
     /**
     * Constructeur du jeu où les pièces sont créées.
     */
@@ -70,12 +70,23 @@ public class GameEngine
         Room vBricABrac = new Room("at the bric-a-brac","bricabrac.jpg");
         Room vTrainStation = new Room("at the Train Station","trainstation.jpg");
         Room vPlatform = new Room("on the Platform","platform.jpg");
-        Room vSecretBasement = new Room("at the secret basement","secretbasement.jpg");
+        Room vSecretBasement = new Room("at the secret basement entrance","secretbasement.jpg");
+        Room vArena = new Room("in the arena","arena.jpg");
         
-        Item vBroom = new Item("broom","a dusty and old broom.", 700);
+        Item vKeyCard = new Item("keyCard","keyCard - a transparent keycard made out of glass.", 5);
+        Item vBroom = new Item("broom","broom - an old and dusty broom.", 700);
+        Item vMilk = new Item("pack of milk"," pack of milk - \"fresh milk from your favorite laboratory !\" ",800);
+        Item vGums = new Item("gums", "a box of gums - \"for bad breath\" ", 100);
+        Item vArticulatedArmV1 = new Item("armV1","Articulated Arm V1 - \" based on a low technology quality \" ", 1250);
+        Item vPills = new Item("pills", "purple pills - \" do not consume these without a doctor's advice. \" ", 5);
+       
+        vSecretBasement.addItem("pills",vPills);
+        vBricABrac.addItem("armV1", vArticulatedArmV1);
         
+        vConvenienceStore.addItem("gums",vGums);
+        vRoom.addItem("keyCard",vKeyCard);
         vBasement.addItem("broom",vBroom);
-
+        vBasement.addItem("pack of milk", vMilk);
         
         vConvenienceStore.setExit("north",vStreet2);
         vConvenienceStore.setExit("down", vBasement);
@@ -134,12 +145,17 @@ public class GameEngine
         vSecretBasement.setExit("north", null);
         vSecretBasement.setExit("south", null);
         vSecretBasement.setExit("west", vPlatform);
-        vSecretBasement.setExit("east", null);         
+        vSecretBasement.setExit("east", vArena); 
+        
+        vArena.setExit("north",null);
+        vArena.setExit("south",null);
+        vArena.setExit("west",vSecretBasement);
+        vArena.setExit("east",null);
         
         this.aCurrentRoom = vConvenienceStore;
     }
     
-        private void look(){
+    private void look(){
         this.aGui.println(aCurrentRoom.getLongDescription());
     }
     
@@ -147,14 +163,26 @@ public class GameEngine
         this.aGui.println("You have eaten now and you are not hungry any more.");
     }
     
+    
+    private void back(){
+        if(aPreviousRoom != null){
+        this.aCurrentRoom = aPreviousRoom; 
+        printLocationInfo();
+        }
+        else{
+        return;
+        }
+    }
+    
         /**
         *
         * Retourne un booléen après traitement de la commande entrée par l'utilisateur.
         * @param pWord Commande entrée par l'utilisateur.
         */
+       
         public void interpretCommand(final String pWord){
         this.aGui.println( "> " + pWord );
-        Command vCommand = this.aParser.getCommand(pWord);
+        Command vCommand = this.aParser.getCommand(pWord); 
         
         if(vCommand.isUnknown()) {
             this.aGui.println("I don't know what you mean ?");
@@ -168,6 +196,7 @@ public class GameEngine
         }
 
         else if(vCommandWord.equals("go")){
+            this.aPreviousRoom = this.aCurrentRoom;
             this.goRoom(vCommand);
         }
         else if(vCommandWord.equals("look")){
@@ -177,34 +206,35 @@ public class GameEngine
             this.eat();
         }
         
+        else if(vCommandWord.equals("back")){
+            this.back();
+        }
+        
         else if(vCommandWord.equals("start!")){
             this.printLocationInfo();
         }
         
         else if (vCommandWord.equals("quit")){
-            if ( vCommand.hasSecondWord() ){
+            if (vCommand.hasSecondWord()){
                 this.aGui.println( "Quit what?" );
             }
             else{
                 this.endGame();
             }
         }
-        
         else{
             this.aGui.println("Erreur du programmeur : commande non reconnue !");
         }
     }
-    
         /**
     *
     * Affiche le message d'aide.
     */
     private void printHelp(){
     this.aGui.println("");
-    this.aGui.println("You are in the dairy section. The temperature is cool around you.");
-    this.aGui.println("You are arranging yogurts in this section...");
+    this.aGui.println("You are wandering around Nydia...");
+    this.aGui.println("If you lost your way, your command words are : ");
     this.aGui.println("");
-    this.aGui.println("Your command words are:");
     this.aGui.println(this.aParser.getCommandString());
     }
     
@@ -217,11 +247,13 @@ public class GameEngine
     private void goRoom(final Command pRoom){
         Room vNextRoom = null;
         String vDirection = pRoom.getSecondWord();
-        if (!pRoom.hasSecondWord()){
+        
+        if(!pRoom.hasSecondWord()){
                 this.aGui.println("Go where ?");
                 return;
             }
         vNextRoom = aCurrentRoom.getExit(vDirection);
+        
         if(vNextRoom != null){
             this.aCurrentRoom = vNextRoom;
             this.aGui.println(this.aCurrentRoom.getLongDescription());
