@@ -1,7 +1,7 @@
 /**
  * Classe Game - le moteur du jeu d'aventure Zuul.
  *
- * @author votre nom
+ * @author Gnamien Marie Emilienne
  */
 public class Game
 {

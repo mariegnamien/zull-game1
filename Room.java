@@ -17,6 +17,7 @@ public class Room
     *
     * Crée une pièce avec une description particulière.
     * @param pDescription description de la pièce
+    * @param pImage nom d'une image
     */
 
     public Room(final String pDescription, final String pImage){
@@ -29,6 +30,7 @@ public class Room
     /**
     *
     * Retourne la description d'une pièce.
+    * @return Retourne la description de la pièce courante.
     * 
     */
     public String getDescription(){
@@ -38,8 +40,8 @@ public class Room
     /**
     *
     * Définit une des sorties de la pièce.
-    * @param pDescription Emplacement de la sortie de la pièce courante.
-    * @param pExit pièce en sortie 
+    * @param pDescription nom de la sortie
+    * @param pExit pièce en sortie de la pièce courante
     */
     public void setExit(final String pDescription, final Room pExit){
         this.aExits.put(pDescription,pExit);
@@ -47,8 +49,8 @@ public class Room
 
     /**
     *
-    * Retourne la sortie d'une pièce en fonction de la direction entrée.
-    * @param pDirection direction
+    *  @return Retourne la sortie d'une pièce en fonction de la direction entrée.
+    * @param pDirection pièce en sortie
     */
     public Room getExit(String pDirection){
         return this.aExits.get(pDirection);
@@ -56,7 +58,8 @@ public class Room
    
     /**
     *
-    * Retourne l'ensemble des sorties d'une pièce.
+    * @return Retourne l'ensemble des sorties d'une pièce.
+    * 
     *
     */
    
@@ -70,15 +73,15 @@ public class Room
         return returnString.toString();
     }//getExitString()
     
-    /** Procédure qui ajoute un Item à notre HashMap aItems
-     * @param String pNom
-     * @param Item pItem
+    /** Procédure qui ajoute un Item à l'HashMap aItems
+     * @param pNom nom de l'item
+     * @param pItem Item
     */
     public void addItem(final String pNom, final Item pItem){
         this.aItems.put(pNom,pItem);
     }//addItem(.)
     
-    /** Fonction qui retourne la liste de tous les Items présents dans la pièce courante
+    /** @return Retourne la liste de tous les Items présents dans la pièce courante
     */
     public String getItemString(){
         StringBuilder vReturn = new StringBuilder("Items : ");
@@ -102,7 +105,7 @@ public class Room
         return "You are " + this.aDescription + ".\n" + this.getExitString() + "\n" + this.getItemString();
     }//getLongDescription()
     
-    /** Fonction qui retourne le nom d'une Image.
+    /** @return Retourne le nom d'une Image.
     */
     public String getImageName(){
         return this.aImageName;

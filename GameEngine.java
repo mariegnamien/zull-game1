@@ -3,10 +3,10 @@ import java.util.ArrayDeque;
 import java.util.Stack;
 
 /**
- * Décrivez votre classe GameEngine ici.
+ * Moteur du jeu d'aventure
  *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * @author Marie Emilienne Gnamien
+ * @version 15/03/2024
  */
 public class GameEngine
 {
@@ -23,13 +23,17 @@ public class GameEngine
         this.aParser = new Parser();
     }//GameEngine()
     
+    /**
+     * Création de l'interface et appel du message de bienvenue.
+     * @param pUserInterface UserInterface
+     */   
     public void setGUI( final UserInterface pUserInterface )
     {
         this.aGui = pUserInterface;
         this.printWelcome();
     }//setGUI()
     
-        /**
+    /**
     *
     * Affiche la pièce actuelle et les sorties possibles.
     * 
@@ -266,7 +270,7 @@ public class GameEngine
     /**
     *
     * Permet de se déplacer entre les différentes pièces du jeu.
-    * @param pRoom Commande entrée par l'utilisateur.
+    * @param pRoom pièce dans laquelle l'utilisateur veut se rendre
     */
    
     private void goRoom(final Command pRoom){

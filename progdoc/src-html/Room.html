@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html lang="fr">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../stylesheet.css" title="Style">
+</head>
+<body>
+<main role="main">
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span><a id="line.1">import java.util.HashMap;</a>
+<span class="sourceLineNo">002</span><a id="line.2">import java.util.Set;</a>
+<span class="sourceLineNo">003</span><a id="line.3"></a>
+<span class="sourceLineNo">004</span><a id="line.4">/**</a>
+<span class="sourceLineNo">005</span><a id="line.5"> * Classe Room - un lieu du jeu d'aventure Zuul.</a>
+<span class="sourceLineNo">006</span><a id="line.6"> *</a>
+<span class="sourceLineNo">007</span><a id="line.7"> * @author Gnamien Marie Emilienne </a>
+<span class="sourceLineNo">008</span><a id="line.8"> */</a>
+<span class="sourceLineNo">009</span><a id="line.9">public class Room</a>
+<span class="sourceLineNo">010</span><a id="line.10">{</a>
+<span class="sourceLineNo">011</span><a id="line.11">    private String aDescription;</a>
+<span class="sourceLineNo">012</span><a id="line.12">    private HashMap&lt;String, Room&gt; aExits;</a>
+<span class="sourceLineNo">013</span><a id="line.13">    private String aImageName;</a>
+<span class="sourceLineNo">014</span><a id="line.14">    private HashMap&lt;String,Item&gt; aItems;</a>
+<span class="sourceLineNo">015</span><a id="line.15">    </a>
+<span class="sourceLineNo">016</span><a id="line.16">    /**</a>
+<span class="sourceLineNo">017</span><a id="line.17">    *</a>
+<span class="sourceLineNo">018</span><a id="line.18">    * Crée une pièce avec une description particulière.</a>
+<span class="sourceLineNo">019</span><a id="line.19">    * @param pDescription description de la pièce</a>
+<span class="sourceLineNo">020</span><a id="line.20">    * @param pImage nom d'une image</a>
+<span class="sourceLineNo">021</span><a id="line.21">    */</a>
+<span class="sourceLineNo">022</span><a id="line.22"></a>
+<span class="sourceLineNo">023</span><a id="line.23">    public Room(final String pDescription, final String pImage){</a>
+<span class="sourceLineNo">024</span><a id="line.24">        this.aDescription = pDescription;</a>
+<span class="sourceLineNo">025</span><a id="line.25">        this.aExits = new HashMap&lt;String,Room&gt;();</a>
+<span class="sourceLineNo">026</span><a id="line.26">        this.aItems = new HashMap&lt;String,Item&gt;();</a>
+<span class="sourceLineNo">027</span><a id="line.27">        this.aImageName = pImage;</a>
+<span class="sourceLineNo">028</span><a id="line.28">    }// Room()</a>
+<span class="sourceLineNo">029</span><a id="line.29">    </a>
+<span class="sourceLineNo">030</span><a id="line.30">    /**</a>
+<span class="sourceLineNo">031</span><a id="line.31">    *</a>
+<span class="sourceLineNo">032</span><a id="line.32">    * Retourne la description d'une pièce.</a>
+<span class="sourceLineNo">033</span><a id="line.33">    * @return Retourne la description de la pièce courante.</a>
+<span class="sourceLineNo">034</span><a id="line.34">    * </a>
+<span class="sourceLineNo">035</span><a id="line.35">    */</a>
+<span class="sourceLineNo">036</span><a id="line.36">    public String getDescription(){</a>
+<span class="sourceLineNo">037</span><a id="line.37">        return this.aDescription;</a>
+<span class="sourceLineNo">038</span><a id="line.38">    }//getDescription()</a>
+<span class="sourceLineNo">039</span><a id="line.39"></a>
+<span class="sourceLineNo">040</span><a id="line.40">    /**</a>
+<span class="sourceLineNo">041</span><a id="line.41">    *</a>
+<span class="sourceLineNo">042</span><a id="line.42">    * Définit une des sorties de la pièce.</a>
+<span class="sourceLineNo">043</span><a id="line.43">    * @param pDescription nom de la sortie</a>
+<span class="sourceLineNo">044</span><a id="line.44">    * @param pExit pièce en sortie de la pièce courante</a>
+<span class="sourceLineNo">045</span><a id="line.45">    */</a>
+<span class="sourceLineNo">046</span><a id="line.46">    public void setExit(final String pDescription, final Room pExit){</a>
+<span class="sourceLineNo">047</span><a id="line.47">        this.aExits.put(pDescription,pExit);</a>
+<span class="sourceLineNo">048</span><a id="line.48">    }//setExit(.)</a>
+<span class="sourceLineNo">049</span><a id="line.49"></a>
+<span class="sourceLineNo">050</span><a id="line.50">    /**</a>
+<span class="sourceLineNo">051</span><a id="line.51">    *</a>
+<span class="sourceLineNo">052</span><a id="line.52">    *  @return Retourne la sortie d'une pièce en fonction de la direction entrée.</a>
+<span class="sourceLineNo">053</span><a id="line.53">    * @param pDirection pièce en sortie</a>
+<span class="sourceLineNo">054</span><a id="line.54">    */</a>
+<span class="sourceLineNo">055</span><a id="line.55">    public Room getExit(String pDirection){</a>
+<span class="sourceLineNo">056</span><a id="line.56">        return this.aExits.get(pDirection);</a>
+<span class="sourceLineNo">057</span><a id="line.57">    }//getExit(.)</a>
+<span class="sourceLineNo">058</span><a id="line.58">   </a>
+<span class="sourceLineNo">059</span><a id="line.59">    /**</a>
+<span class="sourceLineNo">060</span><a id="line.60">    *</a>
+<span class="sourceLineNo">061</span><a id="line.61">    * @return Retourne l'ensemble des sorties d'une pièce.</a>
+<span class="sourceLineNo">062</span><a id="line.62">    * </a>
+<span class="sourceLineNo">063</span><a id="line.63">    *</a>
+<span class="sourceLineNo">064</span><a id="line.64">    */</a>
+<span class="sourceLineNo">065</span><a id="line.65">   </a>
+<span class="sourceLineNo">066</span><a id="line.66">    public String getExitString(){</a>
+<span class="sourceLineNo">067</span><a id="line.67">        StringBuilder returnString = new StringBuilder( "Exits :" );</a>
+<span class="sourceLineNo">068</span><a id="line.68">        for(String vKeys : this.aExits.keySet()){</a>
+<span class="sourceLineNo">069</span><a id="line.69">            if(aExits.get(vKeys) != null){</a>
+<span class="sourceLineNo">070</span><a id="line.70">            returnString.append( " " + vKeys );</a>
+<span class="sourceLineNo">071</span><a id="line.71">        }</a>
+<span class="sourceLineNo">072</span><a id="line.72">        }</a>
+<span class="sourceLineNo">073</span><a id="line.73">        return returnString.toString();</a>
+<span class="sourceLineNo">074</span><a id="line.74">    }//getExitString()</a>
+<span class="sourceLineNo">075</span><a id="line.75">    </a>
+<span class="sourceLineNo">076</span><a id="line.76">    /** Procédure qui ajoute un Item à l'HashMap aItems</a>
+<span class="sourceLineNo">077</span><a id="line.77">     * @param pNom nom de l'item</a>
+<span class="sourceLineNo">078</span><a id="line.78">     * @param pItem Item</a>
+<span class="sourceLineNo">079</span><a id="line.79">    */</a>
+<span class="sourceLineNo">080</span><a id="line.80">    public void addItem(final String pNom, final Item pItem){</a>
+<span class="sourceLineNo">081</span><a id="line.81">        this.aItems.put(pNom,pItem);</a>
+<span class="sourceLineNo">082</span><a id="line.82">    }//addItem(.)</a>
+<span class="sourceLineNo">083</span><a id="line.83">    </a>
+<span class="sourceLineNo">084</span><a id="line.84">    /** @return Retourne la liste de tous les Items présents dans la pièce courante</a>
+<span class="sourceLineNo">085</span><a id="line.85">    */</a>
+<span class="sourceLineNo">086</span><a id="line.86">    public String getItemString(){</a>
+<span class="sourceLineNo">087</span><a id="line.87">        StringBuilder vReturn = new StringBuilder("Items : ");</a>
+<span class="sourceLineNo">088</span><a id="line.88">        if(this.aItems.keySet().size() == 0){</a>
+<span class="sourceLineNo">089</span><a id="line.89">            return "No Items here...";</a>
+<span class="sourceLineNo">090</span><a id="line.90">        }</a>
+<span class="sourceLineNo">091</span><a id="line.91">        </a>
+<span class="sourceLineNo">092</span><a id="line.92">        for(String nom : this.aItems.keySet()){</a>
+<span class="sourceLineNo">093</span><a id="line.93">            vReturn.append(this.aItems.get(nom).getItemDescription() + "; ");</a>
+<span class="sourceLineNo">094</span><a id="line.94">        }</a>
+<span class="sourceLineNo">095</span><a id="line.95">        return vReturn.toString();</a>
+<span class="sourceLineNo">096</span><a id="line.96">        }//getItemString()</a>
+<span class="sourceLineNo">097</span><a id="line.97">    </a>
+<span class="sourceLineNo">098</span><a id="line.98">    /**</a>
+<span class="sourceLineNo">099</span><a id="line.99">     * Retourne une longue description de cette "room", de la forme </a>
+<span class="sourceLineNo">100</span><a id="line.100">     *          You are in the kitchen</a>
+<span class="sourceLineNo">101</span><a id="line.101">     *          Exits : north west.</a>
+<span class="sourceLineNo">102</span><a id="line.102">     * @return A description of the room, including exits. </a>
+<span class="sourceLineNo">103</span><a id="line.103">     */</a>
+<span class="sourceLineNo">104</span><a id="line.104">    public String getLongDescription(){</a>
+<span class="sourceLineNo">105</span><a id="line.105">        return "You are " + this.aDescription + ".\n" + this.getExitString() + "\n" + this.getItemString();</a>
+<span class="sourceLineNo">106</span><a id="line.106">    }//getLongDescription()</a>
+<span class="sourceLineNo">107</span><a id="line.107">    </a>
+<span class="sourceLineNo">108</span><a id="line.108">    /** @return Retourne le nom d'une Image.</a>
+<span class="sourceLineNo">109</span><a id="line.109">    */</a>
+<span class="sourceLineNo">110</span><a id="line.110">    public String getImageName(){</a>
+<span class="sourceLineNo">111</span><a id="line.111">        return this.aImageName;</a>
+<span class="sourceLineNo">112</span><a id="line.112">    }//getImageName()</a>
+<span class="sourceLineNo">113</span><a id="line.113"></a>
+<span class="sourceLineNo">114</span><a id="line.114">} // Room</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</main>
+</body>
+</html>

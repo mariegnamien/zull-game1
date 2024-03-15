@@ -14,6 +14,7 @@ public class CommandWords
     /**
      * Vérifie que la commande entrée appartient à celles acceptées.
      * @param pWord Commande entrée par l'utilisateur.
+     * @return retourne un booléen
      */
     public boolean isCommand(final String pWord){
         for(String element : aValidCommands){
@@ -26,6 +27,7 @@ public class CommandWords
     
     /**
      * Affiche toutes les commandes valides.
+     * @return retourne la liste entière de toutes les commandes disponibles.
      */
     public String getCommandList(){
         String vList = "";

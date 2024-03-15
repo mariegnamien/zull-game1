@@ -29,6 +29,7 @@ public class Parser
     } // Parser()
 
     /**
+     * @param pInputLine ligne entrée
      * @return The next command from the user.
      */
     public Command getCommand(final String pInputLine) 
@@ -61,14 +62,10 @@ public class Parser
         else {
             return new Command( null, vWord2 ); 
         }
-        
-        /**
-         * Affiche une liste de commandes valides.
-         */
 
     } // getCommand()
     
-    /** Fonction qui retourne la liste de toutes les commandes disponibles.
+    /** @return retourne la liste de toutes les commandes disponibles.
     */
     public String getCommandString(){
         return this.aValidCommands.getCommandList();

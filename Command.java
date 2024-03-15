@@ -3,7 +3,7 @@
 /**
  * Classe Command - une commande du jeu d'aventure Zuul.
  *
- * @author Gnamien Marie Emilienne
+ * @author Marie Emilienne Gnamoen
  */
 public class Command
 {
@@ -12,36 +12,36 @@ public class Command
 
     /**
      * Constructeur naturel qui définit une commande en fonction des données entrées par l'utilisateur.
-     * @param pWord1 premier mot entré
-     * @param pWord2 second mot entré
+     * @param pWord1 premier mot de la commande
+     * @param pWord2 deuxieme mot de la commande
      */
     public Command(final String pWord1, final String pWord2){
         this.aCommandWord = pWord1;
         this.aSecondWord = pWord2;
     }//Command(.)
     /**
-     * Retourne le premier mot de la commande entrée.
+     * @return Retourne le premier mot de la commande entrée.
      */  
     public String getCommandWord(){
         return this.aCommandWord;
     }//getCommandWord()
     
     /**
-        Retourne le second mot de la commande.
+        @return Retourne le second mot de la commande.
      */
     public String getSecondWord(){
         return this.aSecondWord;
     }//getSecondWord
     
     /**
-     * Retourne un booléen en fonction de si la commande possède un 2e mot ou non.
+     * @return Retourne un booléen en fonction de si la commande possède un 2e mot ou non.
      */
     public boolean hasSecondWord(){
         return(this.aSecondWord != null);
     }//hasSecondWord()
     
     /**
-        Retourne un booléen en fonction de si la commande est reconnue ou non.
+        @return Retourne un booléen en fonction de si la commande est reconnue ou non.
      */
     public boolean isUnknown(){
         return(this.aCommandWord == null);        
