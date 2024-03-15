@@ -238,10 +238,6 @@ public class GameEngine
             }
         }
         
-        else if(vCommandWord.equals("start!")){
-            this.printLocationInfo();
-        }
-        
         else if (vCommandWord.equals("quit")){
             if (vCommand.hasSecondWord()){
                 this.aGui.println( "Quit what?" );
