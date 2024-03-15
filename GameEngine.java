@@ -1,3 +1,6 @@
+import java.util.Deque;
+import java.util.ArrayDeque;
+import java.util.Stack;
 
 /**
  * Décrivez votre classe GameEngine ici.
@@ -10,7 +13,8 @@ public class GameEngine
     private UserInterface aGui;
     private Parser aParser;
     private Room aCurrentRoom;
-    private Room aPreviousRoom;
+    private Stack<Room> aRoomStack = new Stack<Room>();
+    
     /**
     * Constructeur du jeu où les pièces sont créées.
     */
@@ -163,13 +167,13 @@ public class GameEngine
         this.aGui.println("You have eaten now and you are not hungry any more.");
     }
     
-    
     private void back(){
-        if(aPreviousRoom != null){
-        this.aCurrentRoom = aPreviousRoom; 
-        printLocationInfo();
+        if(!this.aRoomStack.empty()){
+        this.aCurrentRoom = this.aRoomStack.pop();
+        this.printLocationInfo();
         }
         else{
+            this.aGui.println("You can't go back...");
         return;
         }
     }
@@ -196,7 +200,7 @@ public class GameEngine
         }
 
         else if(vCommandWord.equals("go")){
-            this.aPreviousRoom = this.aCurrentRoom;
+            this.aRoomStack.push(this.aCurrentRoom);
             this.goRoom(vCommand);
         }
         else if(vCommandWord.equals("look")){
@@ -207,7 +211,12 @@ public class GameEngine
         }
         
         else if(vCommandWord.equals("back")){
-            this.back();
+            if(vCommand.hasSecondWord()){
+                this.aGui.println("You can't do that...");
+            }
+            else{
+                this.back();
+            }
         }
         
         else if(vCommandWord.equals("start!")){
