@@ -21,13 +21,13 @@ public class GameEngine
     public GameEngine() {
         createRooms();
         this.aParser = new Parser();
-    }
+    }//GameEngine()
     
     public void setGUI( final UserInterface pUserInterface )
     {
         this.aGui = pUserInterface;
         this.printWelcome();
-    }
+    }//setGUI()
     
         /**
     *
@@ -37,9 +37,9 @@ public class GameEngine
     private void printLocationInfo(){
         this.aGui.println(aCurrentRoom.getLongDescription());
         this.aGui.showImage(aCurrentRoom.getImageName());
-    }
+    }//printLocationInfo()
 
-        /**
+    /**
     *
     * Affiche le message de bienvenue dès le lancement du jeu.
     *
@@ -56,8 +56,7 @@ public class GameEngine
     if(this.aCurrentRoom.getImageName() != null){
         this.aGui.showImage(this.aCurrentRoom.getImageName());
     }
-    
-    }
+    }//printWelcome()
     
     /**
     *
@@ -157,16 +156,27 @@ public class GameEngine
         vArena.setExit("east",null);
         
         this.aCurrentRoom = vConvenienceStore;
-    }
+    }//createRooms()
     
+        /**
+        *
+        * Affiche la description du lieu actuel.
+        */
     private void look(){
         this.aGui.println(aCurrentRoom.getLongDescription());
-    }
+    }//look()
     
+        /**
+        *   Affiche un message dans la fenêtre lorsque l'utilisateur entre la commande eat 
+        * 
+        */
     private void eat(){
         this.aGui.println("You have eaten now and you are not hungry any more.");
-    }
+    }//eat()
     
+        /**
+        * Permet de revenir dans la salle précédente une fois la commande entrée par l'utilisateur.
+        */
     private void back(){
         if(!this.aRoomStack.empty()){
         this.aCurrentRoom = this.aRoomStack.pop();
@@ -176,7 +186,7 @@ public class GameEngine
             this.aGui.println("You can't go back...");
         return;
         }
-    }
+    }//back()
     
         /**
         *
@@ -207,7 +217,12 @@ public class GameEngine
             this.look();
         }
         else if(vCommandWord.equals("eat")){
+            if(vCommand.hasSecondWord()){
+                this.aGui.println("You can't do that");
+            }
+            else{
             this.eat();
+        }
         }
         
         else if(vCommandWord.equals("back")){
@@ -234,7 +249,8 @@ public class GameEngine
         else{
             this.aGui.println("Erreur du programmeur : commande non reconnue !");
         }
-    }
+    }//interpretCommand()
+    
         /**
     *
     * Affiche le message d'aide.
@@ -245,7 +261,7 @@ public class GameEngine
     this.aGui.println("If you lost your way, your command words are : ");
     this.aGui.println("");
     this.aGui.println(this.aParser.getCommandString());
-    }
+    }//printHelp()
     
     /**
     *
@@ -279,6 +295,8 @@ public class GameEngine
         }
     } // Game
     
+    /** Procédure d'arrêt du jeu.
+    */
     private void endGame()
     {
         this.aGui.println( "Thank you for playing.  Good bye." );

@@ -111,9 +111,9 @@ public class UserInterface implements ActionListener
         vListScroller.setPreferredSize( new Dimension(200, 200) );
         vListScroller.setMinimumSize( new Dimension(100,100) );
         
-        this.aButton = new JButton("start!");
+        this.aButton = new JButton("start!");// bouton de départ
         
-        aMyFrame.add(this.aButton,BorderLayout.EAST);
+        aMyFrame.add(this.aButton,BorderLayout.EAST); // positionné à droite de la fenêtre
 
         this.aImage = new JLabel();
 
@@ -148,10 +148,10 @@ public class UserInterface implements ActionListener
      */
     @Override public void actionPerformed( final ActionEvent pE ) 
     {
-        if(pE.getSource() == this.aButton){
-            aMyFrame.remove(aButton);
-            this.aEntryField.setText( "start!" );
-            this.aEntryField.enable(true);
+        if(pE.getSource() == this.aButton){ // si le bouton est utilisé
+            aMyFrame.remove(aButton); // le bouton est retiré
+            this.aEntryField.setText( "start!" ); // et le texte start considéré comme commande est automatiquement entrée dans l'Entry Field
+            this.aEntryField.enable(true); // l'EntryField est ensuite activée pour être utilisable par l'utilisateur
         }
         // because there is only one possible action (text input) :
         this.processCommand(); // never suppress this line

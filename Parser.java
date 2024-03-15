@@ -67,7 +67,10 @@ public class Parser
          */
 
     } // getCommand()
+    
+    /** Fonction qui retourne la liste de toutes les commandes disponibles.
+    */
     public String getCommandString(){
         return this.aValidCommands.getCommandList();
-    }// showCommands()
+    }//getCommandString()
 } // Parser

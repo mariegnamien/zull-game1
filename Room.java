@@ -33,7 +33,7 @@ public class Room
     */
     public String getDescription(){
         return this.aDescription;
-    }
+    }//getDescription()
 
     /**
     *
@@ -43,7 +43,7 @@ public class Room
     */
     public void setExit(final String pDescription, final Room pExit){
         this.aExits.put(pDescription,pExit);
-    }
+    }//setExit(.)
 
     /**
     *
@@ -52,7 +52,7 @@ public class Room
     */
     public Room getExit(String pDirection){
         return this.aExits.get(pDirection);
-    }
+    }//getExit(.)
    
     /**
     *
@@ -68,12 +68,18 @@ public class Room
         }
         }
         return returnString.toString();
-    }
+    }//getExitString()
     
+    /** Procédure qui ajoute un Item à notre HashMap aItems
+     * @param String pNom
+     * @param Item pItem
+    */
     public void addItem(final String pNom, final Item pItem){
         this.aItems.put(pNom,pItem);
-    }
+    }//addItem(.)
     
+    /** Fonction qui retourne la liste de tous les Items présents dans la pièce courante
+    */
     public String getItemString(){
         StringBuilder vReturn = new StringBuilder("Items : ");
         if(this.aItems.keySet().size() == 0){
@@ -84,19 +90,7 @@ public class Room
             vReturn.append(this.aItems.get(nom).getItemDescription() + "; ");
         }
         return vReturn.toString();
-        }
-    
-        /*
-        StringBuilder vReturn = new StringBuilder ("Item : ");
-        if(this.aDescription != null){
-            vReturn.append(this.aDescription);
-        }
-        else{
-            return ("No Item here");
-        }
-        return vReturn.toString();
-        */
-    
+        }//getItemString()
     
     /**
      * Retourne une longue description de cette "room", de la forme 
@@ -106,10 +100,12 @@ public class Room
      */
     public String getLongDescription(){
         return "You are " + this.aDescription + ".\n" + this.getExitString() + "\n" + this.getItemString();
-    }
+    }//getLongDescription()
     
+    /** Fonction qui retourne le nom d'une Image.
+    */
     public String getImageName(){
         return this.aImageName;
-    }
+    }//getImageName()
 
 } // Room

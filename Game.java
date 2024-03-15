@@ -9,11 +9,11 @@ public class Game
     private GameEngine aEngine;
     /**
     *
-    * Démarre le jeu et contrôle son arrêt.
+    * Démarre le jeu.
     */
     public void Game() {
     this.aEngine = new GameEngine();
     this.aGui = new UserInterface( this.aEngine );
     this.aEngine.setGUI( this.aGui );   
-    }
+    }//Game()
 } 

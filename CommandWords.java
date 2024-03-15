@@ -10,7 +10,7 @@ public class CommandWords
     
     public CommandWords(){
         
-    }
+    }//CommandWords()
     /**
      * Vérifie que la commande entrée appartient à celles acceptées.
      * @param pWord Commande entrée par l'utilisateur.
@@ -22,7 +22,7 @@ public class CommandWords
             }
         }
         return false;
-    }
+    }//isCommand(.)
     
     /**
      * Affiche toutes les commandes valides.
@@ -33,5 +33,5 @@ public class CommandWords
             vList += command + " ";
         }
         return vList;
-    }
+    }//getCommandList()
 }
