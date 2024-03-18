@@ -48,7 +48,7 @@ public class Room
     }//setExit(.)
 
     /**
-    *
+    *   Fonction qui retourne une sortie en fonction de la direction entrée.
     *  @return Retourne la sortie d'une pièce en fonction de la direction entrée.
     * @param pDirection pièce en sortie
     */
@@ -56,7 +56,7 @@ public class Room
         return this.aExits.get(pDirection);
     }//getExit(.)
    
-    /**
+    /** Fonction qui retourne la liste de toutes les sorties disponibles de la pièce courante.
     *
     * @return Retourne l'ensemble des sorties d'une pièce.
     * 
@@ -81,7 +81,8 @@ public class Room
         this.aItems.put(pNom,pItem);
     }//addItem(.)
     
-    /** @return Retourne la liste de tous les Items présents dans la pièce courante
+    /** Fonction qui Retourne la liste de tous les Items présents dans la pièce courante.
+     * @return Retourne la liste de tous les Items présents dans la pièce courante
     */
     public String getItemString(){
         StringBuilder vReturn = new StringBuilder("Items : ");
@@ -105,7 +106,8 @@ public class Room
         return "You are " + this.aDescription + ".\n" + this.getExitString() + "\n" + this.getItemString();
     }//getLongDescription()
     
-    /** @return Retourne le nom d'une Image.
+    /** Fonction qui retourne le nom d'une image.
+     * @return Retourne le nom d'une Image.
     */
     public String getImageName(){
         return this.aImageName;

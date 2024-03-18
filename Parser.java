@@ -28,7 +28,8 @@ public class Parser
         this.aValidCommands = new CommandWords();
     } // Parser()
 
-    /**
+    /** 
+     * Fonction qui retourne une commande entrée par l'utilisateur.
      * @param pInputLine ligne entrée
      * @return The next command from the user.
      */
@@ -65,7 +66,8 @@ public class Parser
 
     } // getCommand()
     
-    /** @return retourne la liste de toutes les commandes disponibles.
+    /** Fonction qui retourne la liste de toutes les commandes disponibles.
+     * @return retourne la liste de toutes les commandes disponibles.
     */
     public String getCommandString(){
         return this.aValidCommands.getCommandList();

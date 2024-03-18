@@ -6,10 +6,16 @@
  */
 public class CommandWords
 {
+    /**
+     * liste des commandes disponibles
+    */
     private final String[] aValidCommands = {"go","quit","help","look","eat","back"};
     
+    /**
+     * Constructeur vide
+     */
     public CommandWords(){
-        
+        //constructeur vide
     }//CommandWords()
     /**
      * Vérifie que la commande entrée appartient à celles acceptées.

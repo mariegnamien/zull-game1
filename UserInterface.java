@@ -161,7 +161,7 @@ public class UserInterface implements ActionListener
             // et le texte start considéré comme commande est automatiquement entrée dans l'Entry Field
             this.aEntryField.enable(true); // l'EntryField est ensuite activée pour être utilisable par l'utilisateur
             this.aEntryField.setText( "look" );
-            this.aMyFrame.setVisible( true );
+            this.aMyFrame.setVisible( true ); // on réactualise la fenêtre
         }
         // because there is only one possible action (text input) :
         this.processCommand(); // never suppress this line

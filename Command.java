@@ -19,7 +19,7 @@ public class Command
         this.aCommandWord = pWord1;
         this.aSecondWord = pWord2;
     }//Command(.)
-    /**
+    /** Fonction qui retourne le premier mot de la commande entrée.
      * @return Retourne le premier mot de la commande entrée.
      */  
     public String getCommandWord(){
@@ -27,6 +27,7 @@ public class Command
     }//getCommandWord()
     
     /**
+     * Fonction qui retourne le second mot de la commande entrée.
         @return Retourne le second mot de la commande.
      */
     public String getSecondWord(){
@@ -34,14 +35,15 @@ public class Command
     }//getSecondWord
     
     /**
+     * Fonction qui permet de savoir s'il y a un second mot à la commande entrée
      * @return Retourne un booléen en fonction de si la commande possède un 2e mot ou non.
      */
     public boolean hasSecondWord(){
         return(this.aSecondWord != null);
     }//hasSecondWord()
     
-    /**
-        @return Retourne un booléen en fonction de si la commande est reconnue ou non.
+    /** Fonction qui permet de vérifier si la commande est inconnue ou non. 
+     * @return Retourne un booléen en fonction de si la commande est reconnue ou non.
      */
     public boolean isUnknown(){
         return(this.aCommandWord == null);        

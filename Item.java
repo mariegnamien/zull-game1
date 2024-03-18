@@ -29,19 +29,22 @@ public class Item
    }//setItemName(.)
    
     /**
+     * Fonction qui retourne le nom d'un item.
      * @return Retourne le nom d'un Item
     */
    public String getItemName(){
        return this.aNom;
    }//getItemName()
    
-    /** @return Retourne la description d'un Item
+    /** Fonction qui retourne la description d'un item.
+     * @return Retourne la description d'un Item
     */
    public String getItemDescription(){
        return this.aDescription;
    }//getItemDescription()
     
-    /** @return Retourne la liste des Items présents dans la pièce courante.
+    /** Fonction qui retourne la liste des Items présents dans la pièce courante.
+     * @return Retourne la liste des Items présents dans la pièce courante.
     */
    
    public String getItemString(){
@@ -55,7 +58,9 @@ public class Item
         return vReturn.toString();
     }//getItemString()
 
-    /** @return Retourne le poids d'un Item.
+    /** Fonction qui retourne le poids d'un Item.
+     * @return Retourne le poids d'un Item.
+     * 
     */
    public int getItemWeight(){
        return this.aWeight;
