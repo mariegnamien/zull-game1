@@ -1,42 +1,52 @@
 import java.util.Deque;
 import java.util.ArrayDeque;
 import java.util.Stack;
+import java.util.Scanner;
+import java.io.File;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
 
 /**
- * Décrivez votre classe GameEngine ici.
+ * Moteur du jeu d'aventure
  *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * @author Marie Emilienne Gnamien
+ * @version 15/03/2024
  */
 public class GameEngine
 {
     private UserInterface aGui;
     private Parser aParser;
-    private Room aCurrentRoom;
-    private Stack<Room> aRoomStack = new Stack<Room>();
+    private Player aPlayer;
     
     /**
     * Constructeur du jeu où les pièces sont créées.
     */
     public GameEngine() {
-        createRooms();
+        String vPrenom = javax.swing.JOptionPane.showInputDialog( "what is your name ?" );
+        this.aPlayer = new Player(vPrenom);
+        this.createRooms();
         this.aParser = new Parser();
+        //this.aRoomStack = new Stack<Room>();
     }//GameEngine()
     
+    /**
+     * Création de l'interface et appel du message de bienvenue.
+     * @param pUserInterface UserInterface
+     */   
     public void setGUI( final UserInterface pUserInterface )
     {
         this.aGui = pUserInterface;
         this.printWelcome();
     }//setGUI()
     
-        /**
+    /**
     *
     * Affiche la pièce actuelle et les sorties possibles.
     * 
     */
     private void printLocationInfo(){
-        this.aGui.println(aCurrentRoom.getLongDescription());
-        this.aGui.showImage(aCurrentRoom.getImageName());
+        this.aGui.println(this.aPlayer.getCurrentRoom().getLongDescription());
+        this.aGui.showImage(this.aPlayer.getCurrentRoom().getImageName());
     }//printLocationInfo()
 
     /**
@@ -53,8 +63,8 @@ public class GameEngine
     this.aGui.println("\n");
     this.aGui.println("Type 'help' if you need help."); 
     this.aGui.print("\n");
-    if(this.aCurrentRoom.getImageName() != null){
-        this.aGui.showImage(this.aCurrentRoom.getImageName());
+    if(this.aPlayer.getCurrentRoom().getImageName() != null){
+        this.aGui.showImage(this.aPlayer.getCurrentRoom().getImageName());
     }
     }//printWelcome()
     
@@ -62,6 +72,7 @@ public class GameEngine
     *
     * Création de toutes les pièces du jeu.
     */
+   
     private void createRooms() {
         Room vConvenienceStore = new Room("at grandpa's convenience store","conveniencestore.jpg");
         Room vStreet1 = new Room("in the first street","street1.jpg");
@@ -78,10 +89,10 @@ public class GameEngine
         
         Item vKeyCard = new Item("keyCard","keyCard - a transparent keycard made out of glass.", 5);
         Item vBroom = new Item("broom","broom - an old and dusty broom.", 700);
-        Item vMilk = new Item("pack of milk"," pack of milk - \"fresh milk from your favorite laboratory !\" ",800);
-        Item vGums = new Item("gums", "a box of gums - \"for bad breath\" ", 100);
-        Item vArticulatedArmV1 = new Item("armV1","Articulated Arm V1 - \" based on a low technology quality \" ", 1250);
-        Item vPills = new Item("pills", "purple pills - \" do not consume these without a doctor's advice. \" ", 5);
+        Item vMilk = new Item("milk"," milk - \"fresh milk from your favorite laboratory !\" ",800);
+        Item vGums = new Item("gums", "gums - a box of gums \"for bad breath\" ", 100);
+        Item vArticulatedArmV1 = new Item("armV1"," armV1 - Articulated Arm V1 \" based on a low technology quality \" ", 1250);
+        Item vPills = new Item("pills", " pills - purple pills : \" do not consume these without a doctor's advice. \" ", 5);
        
         vSecretBasement.addItem("pills",vPills);
         vBricABrac.addItem("armV1", vArticulatedArmV1);
@@ -155,7 +166,7 @@ public class GameEngine
         vArena.setExit("west",vSecretBasement);
         vArena.setExit("east",null);
         
-        this.aCurrentRoom = vConvenienceStore;
+        this.aPlayer.changeRoom(vConvenienceStore);
     }//createRooms()
     
         /**
@@ -163,7 +174,7 @@ public class GameEngine
         * Affiche la description du lieu actuel.
         */
     private void look(){
-        this.aGui.println(aCurrentRoom.getLongDescription());
+        this.aGui.println(this.aPlayer.getCurrentRoom().getLongDescription());
     }//look()
     
         /**
@@ -178,15 +189,35 @@ public class GameEngine
         * Permet de revenir dans la salle précédente une fois la commande entrée par l'utilisateur.
         */
     private void back(){
-        if(!this.aRoomStack.empty()){
-        this.aCurrentRoom = this.aRoomStack.pop();
-        this.printLocationInfo();
+        if(this.aPlayer.back()){
+            this.printLocationInfo();
         }
         else{
             this.aGui.println("You can't go back...");
         return;
         }
     }//back()
+    
+    /**
+     * Permet de lire le fichier texte mis en paramètre
+     * @param pTextFichier fichier texte
+     */
+    private void lecture(final String pTextFichier){
+        Scanner vSc;
+        try{
+        vSc = new Scanner(new File(pTextFichier));
+        while(vSc.hasNextLine()){
+            String vLigne = vSc.nextLine();
+            this.interpretCommand(vLigne);
+        }
+        
+        vSc.close();
+        }
+        catch(final FileNotFoundException pFNFE){
+            
+        }
+        
+    }//lecture()
     
         /**
         *
@@ -210,7 +241,7 @@ public class GameEngine
         }
 
         else if(vCommandWord.equals("go")){
-            this.aRoomStack.push(this.aCurrentRoom);
+            this.aPlayer.addStackRoom();
             this.goRoom(vCommand);
         }
         else if(vCommandWord.equals("look")){
@@ -233,11 +264,35 @@ public class GameEngine
                 this.back();
             }
         }
-        
-        else if(vCommandWord.equals("start!")){
-            this.printLocationInfo();
+        else if(vCommandWord.equals("take")){
+            if(vCommand.hasSecondWord()){
+                if(this.aPlayer.getCurrentRoom().containsItem(vCommand.getSecondWord())){
+                this.aPlayer.take(vCommand.getSecondWord());
+            } 
+            
+            else{
+                this.aGui.println("This item is unavailable..");
+            }
+            
+            }
+            else{
+                this.aGui.println("You can't do that...");
+            }
         }
         
+        else if(vCommandWord.equals("drop")){
+            if(vCommand.hasSecondWord()){
+                if(this.aPlayer.hasItem(vCommand.getSecondWord())){
+                this.aPlayer.drop(vCommand.getSecondWord());
+                }
+                else{
+                this.aGui.println("This item is unavailable..");
+                }
+            }
+            else{
+                this.aGui.println("You can't do that...");
+            }
+        }
         else if (vCommandWord.equals("quit")){
             if (vCommand.hasSecondWord()){
                 this.aGui.println( "Quit what?" );
@@ -246,9 +301,24 @@ public class GameEngine
                 this.endGame();
             }
         }
+        else if(vCommandWord.equals("test")){
+            if(vCommand.hasSecondWord() && vCommand.getSecondWord().equals("essai")){
+                this.lecture("essai.txt");
+            }
+            else if(vCommand.hasSecondWord() && vCommand.getSecondWord().equals("victoire")){
+                this.lecture("victoire.txt");
+            }
+            else if(vCommand.hasSecondWord() && vCommand.getSecondWord().equals("court")){
+                this.lecture("court.txt");
+            }
+            else if(vCommand.hasSecondWord() && vCommand.getSecondWord().equals("all")){
+                this.lecture("all.txt");
+            }
+        }
         else{
             this.aGui.println("Erreur du programmeur : commande non reconnue !");
         }
+    
     }//interpretCommand()
     
         /**
@@ -266,7 +336,7 @@ public class GameEngine
     /**
     *
     * Permet de se déplacer entre les différentes pièces du jeu.
-    * @param pRoom Commande entrée par l'utilisateur.
+    * @param pRoom pièce dans laquelle l'utilisateur veut se rendre
     */
    
     private void goRoom(final Command pRoom){
@@ -277,13 +347,13 @@ public class GameEngine
                 this.aGui.println("Go where ?");
                 return;
             }
-        vNextRoom = aCurrentRoom.getExit(vDirection);
+        vNextRoom = this.aPlayer.getCurrentRoom().getExit(vDirection);
         
         if(vNextRoom != null){
-            this.aCurrentRoom = vNextRoom;
-            this.aGui.println(this.aCurrentRoom.getLongDescription());
-            if(this.aCurrentRoom.getImageName() != null){
-                this.aGui.showImage(this.aCurrentRoom.getImageName());
+            this.aPlayer.changeRoom(vNextRoom);
+            this.aGui.println(this.aPlayer.getCurrentRoom().getLongDescription());
+            if(this.aPlayer.getCurrentRoom().getImageName() != null){
+                this.aGui.showImage(this.aPlayer.getCurrentRoom().getImageName());
             }
         }
         else if(vNextRoom == null){

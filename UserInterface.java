@@ -39,7 +39,7 @@ public class UserInterface implements ActionListener
      * (an object processing and executing the game commands) is
      * needed.
      * 
-     * @param gameEngine  The GameEngine object implementing the game logic.
+     * @param pGameEngine The GameEngine object implementing the game logic.
      */
     public UserInterface( final GameEngine pGameEngine )
     {
@@ -49,6 +49,7 @@ public class UserInterface implements ActionListener
 
     /**
      * Print out some text into the text area.
+     * @param pText chaine de caracteres
      */
     public void print( final String pText )
     {
@@ -58,7 +59,8 @@ public class UserInterface implements ActionListener
 
     /**
      * Print out some text into the text area, followed by a line break.
-     */
+     * @param pText texte écrit dans la fenêtre
+    */
     public void println( final String pText )
     {
         this.print( pText + "\n" );
@@ -66,6 +68,7 @@ public class UserInterface implements ActionListener
 
     /**
      * Show an image file in the interface.
+     * @param pImageName nom de l'image
      */
     public void showImage( final String pImageName )
     {
@@ -82,6 +85,7 @@ public class UserInterface implements ActionListener
 
     /**
      * Enable or disable input in the entry field.
+     * @param pOnOff booleen
      */
     public void enable( final boolean pOnOff )
     {
@@ -132,6 +136,9 @@ public class UserInterface implements ActionListener
         // to end program when window is closed
         this.aMyFrame.addWindowListener(
             new WindowAdapter() { // anonymous class
+                /** Ferme la fenêtre du jeu.
+                 * @param pE WindowEvent
+                 */
                 @Override public void windowClosing(final WindowEvent pE)
                 {
                     System.exit(0);
@@ -145,13 +152,19 @@ public class UserInterface implements ActionListener
 
     /**
      * Actionlistener interface for entry textfield.
+     * @param pE ActionEvent
      */
     @Override public void actionPerformed( final ActionEvent pE ) 
     {
         if(pE.getSource() == this.aButton){ // si le bouton est utilisé
             aMyFrame.remove(aButton); // le bouton est retiré
-            this.aEntryField.setText( "start!" ); // et le texte start considéré comme commande est automatiquement entrée dans l'Entry Field
+            
+            this.aMyFrame.setVisible(false);// on réactualise la fenêtre
+            this.aMyFrame.pack();           
+            this.aMyFrame.setVisible( true );
+            
             this.aEntryField.enable(true); // l'EntryField est ensuite activée pour être utilisable par l'utilisateur
+            this.aEntryField.setText( "look" );
         }
         // because there is only one possible action (text input) :
         this.processCommand(); // never suppress this line

@@ -1,0 +1,5 @@
+go north
+back
+back
+help
+eat
