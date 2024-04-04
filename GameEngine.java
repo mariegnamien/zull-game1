@@ -293,6 +293,7 @@ public class GameEngine
                 this.aGui.println("You can't do that...");
             }
         }
+
         else if (vCommandWord.equals("quit")){
             if (vCommand.hasSecondWord()){
                 this.aGui.println( "Quit what?" );

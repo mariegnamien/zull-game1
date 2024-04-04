@@ -70,7 +70,7 @@ public class Room
     public boolean containsItem(final String pKey){
         return this.aItems.containsKey(pKey);
     }
-    
+
     /** Fonction qui retourne la liste de toutes les sorties disponibles de la pièce courante.
     *
     * @return Retourne l'ensemble des sorties d'une pièce.
@@ -104,6 +104,7 @@ public class Room
         this.aItems.remove(pNom,pItem);
     }//removeItem(.)
     
+
     /** Fonction qui Retourne la liste de tous les Items présents dans la pièce courante.
      * @return Retourne la liste de tous les Items présents dans la pièce courante
     */

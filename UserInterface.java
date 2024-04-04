@@ -158,13 +158,17 @@ public class UserInterface implements ActionListener
     {
         if(pE.getSource() == this.aButton){ // si le bouton est utilisé
             aMyFrame.remove(aButton); // le bouton est retiré
+
             
             this.aMyFrame.setVisible(false);// on réactualise la fenêtre
             this.aMyFrame.pack();           
             this.aMyFrame.setVisible( true );
             
+            // et le texte start considéré comme commande est automatiquement entrée dans l'Entry Field
+
             this.aEntryField.enable(true); // l'EntryField est ensuite activée pour être utilisable par l'utilisateur
             this.aEntryField.setText( "look" );
+            this.aMyFrame.setVisible( true ); // on réactualise la fenêtre
         }
         // because there is only one possible action (text input) :
         this.processCommand(); // never suppress this line
