@@ -23,15 +23,6 @@ public class ItemList
     public void addItem(final String pNom, final Item pItem){
         this.aItemList.put(pNom,pItem);
     }//addItem(.)
-
-    /**
-     * Procédure qui retourne l'ItemList
-     * 
-     * 
-     */
-    public HashMap getItemList(){
-        return this.aItemList;
-    }
     
     /**
      * Fonction qui retourne la taille du keyset de la liste d'items
@@ -71,11 +62,5 @@ public class ItemList
         return this.aItemList.containsKey(pKey);
     }
     
-    /**
-     * Fonction qui retourne un booléen en fonction de la présence ou non d'un Item dans l'inventaire.
-     * @param pKey clé de l'Item
-     */
-    public boolean hasItem(final String pKey){
-        return this.aItemList.containsKey(pKey);
-    }
+
 }

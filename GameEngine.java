@@ -26,7 +26,6 @@ public class GameEngine
         this.aPlayer = new Player(vPrenom);
         this.createRooms();
         this.aParser = new Parser();
-        //this.aRoomStack = new Stack<Room>();
     }//GameEngine()
     
     /**
@@ -93,14 +92,18 @@ public class GameEngine
         Item vGums = new Item("gums", "gums - a box of gums \"for bad breath\" ", 100);
         Item vArticulatedArmV1 = new Item("armV1"," armV1 - Articulated Arm V1 \" based on a low technology quality \" ", 1250);
         Item vPills = new Item("pills", " pills - purple pills : \" do not consume these without a doctor's advice. \" ", 5);
-       
+        Item vMagicCookie = new Item("magicCookie", "magic Cookie - ???",100);
+        
+        
+        
         vSecretBasement.addItem("pills",vPills);
         vBricABrac.addItem("armV1", vArticulatedArmV1);
         
         vConvenienceStore.addItem("gums",vGums);
+        vConvenienceStore.addItem("magicCookie", vMagicCookie);
         vRoom.addItem("keyCard",vKeyCard);
         vBasement.addItem("broom",vBroom);
-        vBasement.addItem("pack of milk", vMilk);
+        vBasement.addItem("milk", vMilk);
         
         vConvenienceStore.setExit("north",vStreet2);
         vConvenienceStore.setExit("down", vBasement);
@@ -179,10 +182,16 @@ public class GameEngine
     
         /**
         *   Affiche un message dans la fenêtre lorsque l'utilisateur entre la commande eat 
-        * 
+        * @param pItem nom de l'Item
         */
-    private void eat(){
+    private void eat(final String pItem){
+        if(pItem.equals("magicCookie")){
+            this.aPlayer.changeMaxWeight();
+            this.aPlayer.getInventory().removeItem(pItem);
+        }
+        else{
         this.aGui.println("You have eaten now and you are not hungry any more.");
+        }
     }//eat()
     
         /**
@@ -248,11 +257,11 @@ public class GameEngine
             this.look();
         }
         else if(vCommandWord.equals("eat")){
-            if(vCommand.hasSecondWord()){
-                this.aGui.println("You can't do that");
+            if(vCommand.hasSecondWord() && this.aPlayer.getInventory().containsItem(vCommand.getSecondWord())){
+                this.eat(vCommand.getSecondWord());
             }
             else{
-            this.eat();
+            this.aGui.println("You can't do that");
         }
         }
         
@@ -267,7 +276,7 @@ public class GameEngine
         else if(vCommandWord.equals("take")){
             if(vCommand.hasSecondWord()){
                 if(this.aPlayer.getCurrentRoom().getItems().containsItem(vCommand.getSecondWord())){
-                this.aPlayer.take(vCommand.getSecondWord());
+                this.aGui.println(this.aPlayer.take(vCommand.getSecondWord()));
             } 
             
             else{
@@ -282,7 +291,7 @@ public class GameEngine
         
         else if(vCommandWord.equals("drop")){
             if(vCommand.hasSecondWord()){
-                if(!this.aPlayer.getCurrentRoom().getItems().hasItem(vCommand.getSecondWord())){
+                if(!this.aPlayer.getCurrentRoom().getItems().containsItem(vCommand.getSecondWord())){
                 this.aPlayer.drop(vCommand.getSecondWord());
                 }
                 else{
@@ -294,6 +303,15 @@ public class GameEngine
             }
         }
 
+        else if (vCommandWord.equals("items")){
+            if (vCommand.hasSecondWord()){
+                this.aGui.println( "You can't do that.." );
+            }
+            else{
+                this.aGui.println(this.aPlayer.items());
+            }
+        }
+        
         else if (vCommandWord.equals("quit")){
             if (vCommand.hasSecondWord()){
                 this.aGui.println( "Quit what?" );
@@ -333,6 +351,7 @@ public class GameEngine
     this.aGui.println("");
     this.aGui.println(this.aParser.getCommandString());
     }//printHelp()
+    
     
     /**
     *

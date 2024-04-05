@@ -17,6 +17,7 @@ public class Item
      * @param pWeight poids de l'item (String)
     */
    public Item(final String pNom,final String pDescription, final int pWeight){
+       this.aNom = pNom;
        this.aDescription = pDescription;
        this.aWeight = pWeight;
    }//Item(.)

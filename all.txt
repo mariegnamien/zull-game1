@@ -1,8 +1,15 @@
+take magicCookie
+eat magicCookie
+take gums
 go south 
 go north
-go down 
+go down
+take broom
+take milk
+items 
 go east 
 go west
+drop gums
 go up
 go north
 go south
@@ -24,4 +31,4 @@ back
 look
 help
 eat
-quit
+
