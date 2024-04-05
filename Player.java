@@ -14,7 +14,7 @@ public class Player
     private String aName;
     private Room aCurrentRoom;
     private int aMaxWeight;
-    private HashMap<String,Item> aInventory;
+    private ItemList aInventory;
     private Stack<Room> aRoomStack;
     
     /**
@@ -23,7 +23,7 @@ public class Player
     public Player(final String pName)
     {
         this.aName = pName;
-        this.aInventory = new HashMap<String,Item>();
+        this.aInventory = new ItemList();
         this.aRoomStack = new Stack<Room>();
         this.aCurrentRoom = null;
         this.aMaxWeight = 2500;
@@ -53,20 +53,13 @@ public class Player
     }
     
     public void take(final String pItem){
-       this.aInventory.put(pItem,this.aCurrentRoom.getItem(pItem));
-       this.aCurrentRoom.removeItem(pItem,this.aCurrentRoom.getItem(pItem));
+       this.aInventory.addItem(pItem,this.aCurrentRoom.getItems().getItem(pItem));
+       this.aCurrentRoom.getItems().removeItem(pItem);
     }
     
     public void drop(final String pItem){
-        this.aCurrentRoom.addItem(pItem,this.aInventory.get(pItem));
-        this.aInventory.remove(pItem);
+        this.aCurrentRoom.getItems().addItem(pItem,this.aInventory.getItem(pItem));
+        this.aInventory.removeItem(pItem);
     }
     
-    /**
-     * Fonction qui retourne un booléen en fonction de la présence ou non d'un Item dans l'inventaire.
-     * @param pKey clé de l'Item
-     */
-    public boolean hasItem(final String pKey){
-        return this.aInventory.containsKey(pKey);
-    }
 }

@@ -266,7 +266,7 @@ public class GameEngine
         }
         else if(vCommandWord.equals("take")){
             if(vCommand.hasSecondWord()){
-                if(this.aPlayer.getCurrentRoom().containsItem(vCommand.getSecondWord())){
+                if(this.aPlayer.getCurrentRoom().getItems().containsItem(vCommand.getSecondWord())){
                 this.aPlayer.take(vCommand.getSecondWord());
             } 
             
@@ -282,7 +282,7 @@ public class GameEngine
         
         else if(vCommandWord.equals("drop")){
             if(vCommand.hasSecondWord()){
-                if(this.aPlayer.hasItem(vCommand.getSecondWord())){
+                if(!this.aPlayer.getCurrentRoom().getItems().hasItem(vCommand.getSecondWord())){
                 this.aPlayer.drop(vCommand.getSecondWord());
                 }
                 else{
