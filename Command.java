@@ -1,20 +1,14 @@
- 
-
 /**
  * Classe Command - une commande du jeu d'aventure Zuul.
  *
-<<<<<<< HEAD
- * @author Marie Emilienne Gnamien
-=======
  * @author Marie Emilienne Gnamoen
->>>>>>> 1e7e1828e02652f99302ecd1bbefe79cb14c42ec
  */
 public class Command
 {
-    /*
-     * attribut premier mot
-     */
+    /** premier mot de la commande entrée */
     private String aCommandWord;
+    
+    /** second mot de la commande entrée */
     private String aSecondWord;
 
     /**

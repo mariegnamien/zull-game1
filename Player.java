@@ -17,7 +17,8 @@ public class Player
     private ItemList aInventory;
     private Stack<Room> aRoomStack;
     private UserInterface aGui;
-    
+    private boolean aQuest;
+    private int aSteps;
     
         /**
      * Création de l'interface et appel du message de bienvenue.
@@ -30,6 +31,7 @@ public class Player
     
     /**
      * Constructeur d'objets de classe Player
+     * @param pName nom du joueur
      */
     public Player(final String pName)
     {
@@ -38,6 +40,7 @@ public class Player
         this.aRoomStack = new Stack<Room>();
         this.aCurrentRoom = null;
         this.aMaxWeight = 1500;
+        this.aSteps = 0;
         // initialisation des variables d'instance
     }
     
@@ -48,10 +51,9 @@ public class Player
         this.aMaxWeight = 3000;
     }
     
-    
-    
     /**
      * Procédure qui nous permet de repartir dans la pièce précédente.
+     * @return retourne un booléen
      */
     public boolean back(){
         if(!this.aRoomStack.empty()){
@@ -65,6 +67,7 @@ public class Player
     
     /**
      * Procédure qui permet au joueur de changer de pièce.
+     * @param pRoom pièce suivante
      */
     public void changeRoom(final Room pRoom){
         this.aCurrentRoom = pRoom;
@@ -72,6 +75,7 @@ public class Player
     
     /**
      * Accesseur qui permet d'obtenir l'inventaire du joueur
+     * @return retourne une TtemList (inventaire du joueur)
      */
     public ItemList getInventory(){
         return this.aInventory;
@@ -86,6 +90,7 @@ public class Player
     
     /**
      * Accesseur qui permet d'obtenir la pièce courante.
+     * @return retourne la pièce courante
      */
     public Room getCurrentRoom(){
         return this.aCurrentRoom;
@@ -93,6 +98,7 @@ public class Player
     
     /**
      * Fonction qui retourne l'inventaire du joueur ainsi que son poids total.
+     * @return retourne une chaîne de caractères
      */
     public String items(){
        String vString = "";
@@ -102,12 +108,13 @@ public class Player
           vString += this.aInventory.getItem(item).getItemName() + ",";
           vWeight += this.aInventory.getItem(item).getItemWeight();
        }
-       return "Here are your items :" + vString + " and this is the total weight : " + vWeight;
+       return "Here are your items :" + vString + " total weight : " + vWeight;
     }
     
     /**
      * Fonction qui permet au joueur de prendre un item dans son inventaire.
      * @param pItem nom de l'item
+     * @return retourne une chaîne de caractères
      */
     public String take(final String pItem){
        int vWeight = 0;
@@ -127,10 +134,43 @@ public class Player
     
     /**
      * Procédure qui permet au joueur de déposer un item dans une pièce.
+     * @param pItem Item à déposer dans la pièce.
      */
     public void drop(final String pItem){
         this.aCurrentRoom.getItems().addItem(pItem,this.aInventory.getItem(pItem));
         this.aInventory.removeItem(pItem);
+    }
+
+    /**
+     * Procédure de la première quête qui nous permet de compter le nombre de pas effectués.
+     */ 
+    public void quest(){
+        if(this.aQuest == true){
+        this.aSteps += 1;
+        }
+        else{
+        return;
+    }
+    }
+    
+        /**
+     * Procédure qui permet de changer la valeur de l'attribut aQuest.
+     * @param pRoom valeur booléenne
+     */
+    public void enableQuest(final boolean pValue){
+        this.aQuest = pValue;
+    }
+    
+    public boolean getQuest(){
+        return this.aQuest;
+    }
+    
+    /**
+     * Procédure qui retourne le nombre de pas effectués.
+     * @return nombre de pas effectués pendant une quête
+     */
+    public int getSteps(){
+        return this.aSteps;
     }
     
 }

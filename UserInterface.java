@@ -33,6 +33,7 @@ public class UserInterface implements ActionListener
     private JTextArea  aLog;
     private JLabel     aImage;
     private JButton aButton;
+    private JButton aButton2;
     
     /**
      * Construct a UserInterface. As a parameter, a Game Engine
@@ -115,12 +116,13 @@ public class UserInterface implements ActionListener
         vListScroller.setPreferredSize( new Dimension(200, 200) );
         vListScroller.setMinimumSize( new Dimension(100,100) );
         
-        this.aButton = new JButton("start!");// bouton de départ
+        this.aButton = new JButton("start!"); // bouton de départ
+        this.aButton2 = new JButton("quest");
         
         aMyFrame.add(this.aButton,BorderLayout.EAST); // positionné à droite de la fenêtre
-
+        
         this.aImage = new JLabel();
-
+    
         JPanel vPanel = new JPanel();
         vPanel.setLayout( new BorderLayout() ); // ==> only five places
         vPanel.add( this.aImage, BorderLayout.NORTH );
@@ -132,6 +134,7 @@ public class UserInterface implements ActionListener
         // add some event listeners to some components
         this.aEntryField.addActionListener( this );
         this.aButton.addActionListener(this);
+        this.aButton2.addActionListener(this);
         
         // to end program when window is closed
         this.aMyFrame.addWindowListener(
@@ -157,18 +160,20 @@ public class UserInterface implements ActionListener
     @Override public void actionPerformed( final ActionEvent pE ) 
     {
         if(pE.getSource() == this.aButton){ // si le bouton est utilisé
-            aMyFrame.remove(aButton); // le bouton est retiré
-
-            
+            aMyFrame.remove(this.aButton); // le bouton est retiré
+            aMyFrame.add(this.aButton2,BorderLayout.WEST);
             this.aMyFrame.setVisible(false);// on réactualise la fenêtre
             this.aMyFrame.pack();           
-            this.aMyFrame.setVisible( true );
+            this.aMyFrame.setVisible(true);
             
             // et le texte start considéré comme commande est automatiquement entrée dans l'Entry Field
 
             this.aEntryField.enable(true); // l'EntryField est ensuite activée pour être utilisable par l'utilisateur
             this.aEntryField.setText( "look" );
             this.aMyFrame.setVisible( true ); // on réactualise la fenêtre
+        }
+        if(pE.getSource() == this.aButton2){
+            this.aEntryField.setText( "quest" );
         }
         // because there is only one possible action (text input) :
         this.processCommand(); // never suppress this line

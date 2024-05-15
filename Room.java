@@ -14,10 +14,9 @@ public class Room
     private ItemList aItems;
     
     /**
-    *
     * Crée une pièce avec une description particulière.
-    * @param pDescription description de la pièce
-    * @param pImage nom d'une image
+    * @param pDescription description de la pièce.
+    * @param pImage nom d'une image.
     */
 
     public Room(final String pDescription, final String pImage){
@@ -36,10 +35,8 @@ public class Room
     }//addItem(.)
 
     /**
-    *
     * Retourne la description d'une pièce.
     * @return Retourne la description de la pièce courante.
-    * 
     */
     public String getDescription(){
         return this.aDescription;
@@ -56,19 +53,16 @@ public class Room
     }//setExit(.)
 
     /**
-    *   Fonction qui retourne une sortie en fonction de la direction entrée.
+    *  Fonction qui retourne une sortie en fonction de la direction entrée.
     *  @return Retourne la sortie d'une pièce en fonction de la direction entrée.
-    * @param pDirection pièce en sortie
+    *  @param pDirection pièce en sortie
     */
     public Room getExit(String pDirection){
         return this.aExits.get(pDirection);
     }//getExit(.)
 
     /** Fonction qui retourne la liste de toutes les sorties disponibles de la pièce courante.
-    *
     * @return Retourne l'ensemble des sorties d'une pièce.
-    * 
-    *
     */
    
     public String getExitString(){
@@ -117,6 +111,10 @@ public class Room
         return this.aImageName;
     }//getImageName()
     
+    /**
+     * Fonction qui retourne l'ensemble des Items présents dans la pièce courante.
+     * @return retourne une ItemList
+     */
     public ItemList getItems(){
         return this.aItems;
     }

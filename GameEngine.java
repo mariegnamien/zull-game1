@@ -250,8 +250,20 @@ public class GameEngine
         }
 
         else if(vCommandWord.equals("go")){
+            if(this.aPlayer.getQuest() == true){
             this.aPlayer.addStackRoom();
             this.goRoom(vCommand);
+            this.aPlayer.quest();
+            if(this.aPlayer.getSteps() > 3 && this.aPlayer.getInventory().getItem("broom") == null){
+                this.aGui.println("You must find the broom... Try again.");
+                this.endGame();
+            }
+            }
+            else{
+            this.aPlayer.addStackRoom();
+            this.goRoom(vCommand);
+            
+        }
         }
         else if(vCommandWord.equals("look")){
             this.look();
@@ -282,7 +294,6 @@ public class GameEngine
             else{
                 this.aGui.println("This item is unavailable..");
             }
-            
             }
             else{
                 this.aGui.println("You can't do that...");
@@ -333,6 +344,10 @@ public class GameEngine
             else if(vCommand.hasSecondWord() && vCommand.getSecondWord().equals("all")){
                 this.lecture("all.txt");
             }
+        }
+        else if(vCommandWord.equals("quest")){
+            this.aPlayer.enableQuest(true);
+            this.aGui.println("Find the broom to clean the store");
         }
         else{
             this.aGui.println("Erreur du programmeur : commande non reconnue !");

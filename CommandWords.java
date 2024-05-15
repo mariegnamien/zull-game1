@@ -9,7 +9,7 @@ public class CommandWords
     /**
      * liste des commandes disponibles
     */
-    private final String[] aValidCommands = {"go","quit","help","look","eat","back","test","take","drop","items"};
+    private final String[] aValidCommands = {"go","quit","help","look","eat","back","test","take","drop","items","quest"};
 
 
     /**
