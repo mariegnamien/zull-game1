@@ -254,7 +254,7 @@ public class GameEngine
             this.aPlayer.addStackRoom();
             this.goRoom(vCommand);
             this.aPlayer.quest();
-            if(this.aPlayer.getSteps() > 3 && this.aPlayer.getInventory().getItem("broom") == null){
+            if(this.aPlayer.getSteps() >= 3 && this.aPlayer.getInventory().getItem("broom") == null){
                 this.aGui.println("You must find the broom... Try again.");
                 this.endGame();
             }
