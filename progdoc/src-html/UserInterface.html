@@ -46,159 +46,164 @@
 <span class="source-line-no">033</span><span id="line-33">    private JTextArea  aLog;</span>
 <span class="source-line-no">034</span><span id="line-34">    private JLabel     aImage;</span>
 <span class="source-line-no">035</span><span id="line-35">    private JButton aButton;</span>
-<span class="source-line-no">036</span><span id="line-36">    </span>
-<span class="source-line-no">037</span><span id="line-37">    /**</span>
-<span class="source-line-no">038</span><span id="line-38">     * Construct a UserInterface. As a parameter, a Game Engine</span>
-<span class="source-line-no">039</span><span id="line-39">     * (an object processing and executing the game commands) is</span>
-<span class="source-line-no">040</span><span id="line-40">     * needed.</span>
-<span class="source-line-no">041</span><span id="line-41">     * </span>
-<span class="source-line-no">042</span><span id="line-42">     * @param pGameEngine The GameEngine object implementing the game logic.</span>
-<span class="source-line-no">043</span><span id="line-43">     */</span>
-<span class="source-line-no">044</span><span id="line-44">    public UserInterface( final GameEngine pGameEngine )</span>
-<span class="source-line-no">045</span><span id="line-45">    {</span>
-<span class="source-line-no">046</span><span id="line-46">        this.aEngine = pGameEngine;</span>
-<span class="source-line-no">047</span><span id="line-47">        this.createGUI();</span>
-<span class="source-line-no">048</span><span id="line-48">    } // UserInterface(.)</span>
-<span class="source-line-no">049</span><span id="line-49"></span>
-<span class="source-line-no">050</span><span id="line-50">    /**</span>
-<span class="source-line-no">051</span><span id="line-51">     * Print out some text into the text area.</span>
-<span class="source-line-no">052</span><span id="line-52">     * @param pText chaine de caracteres</span>
-<span class="source-line-no">053</span><span id="line-53">     */</span>
-<span class="source-line-no">054</span><span id="line-54">    public void print( final String pText )</span>
-<span class="source-line-no">055</span><span id="line-55">    {</span>
-<span class="source-line-no">056</span><span id="line-56">        this.aLog.append( pText );</span>
-<span class="source-line-no">057</span><span id="line-57">        this.aLog.setCaretPosition( this.aLog.getDocument().getLength() );</span>
-<span class="source-line-no">058</span><span id="line-58">    } // print(.)</span>
-<span class="source-line-no">059</span><span id="line-59"></span>
-<span class="source-line-no">060</span><span id="line-60">    /**</span>
-<span class="source-line-no">061</span><span id="line-61">     * Print out some text into the text area, followed by a line break.</span>
-<span class="source-line-no">062</span><span id="line-62">     * @param pText texte écrit dans la fenêtre</span>
-<span class="source-line-no">063</span><span id="line-63">    */</span>
-<span class="source-line-no">064</span><span id="line-64">    public void println( final String pText )</span>
-<span class="source-line-no">065</span><span id="line-65">    {</span>
-<span class="source-line-no">066</span><span id="line-66">        this.print( pText + "\n" );</span>
-<span class="source-line-no">067</span><span id="line-67">    } // println(.)</span>
-<span class="source-line-no">068</span><span id="line-68"></span>
-<span class="source-line-no">069</span><span id="line-69">    /**</span>
-<span class="source-line-no">070</span><span id="line-70">     * Show an image file in the interface.</span>
-<span class="source-line-no">071</span><span id="line-71">     * @param pImageName nom de l'image</span>
-<span class="source-line-no">072</span><span id="line-72">     */</span>
-<span class="source-line-no">073</span><span id="line-73">    public void showImage( final String pImageName )</span>
-<span class="source-line-no">074</span><span id="line-74">    {</span>
-<span class="source-line-no">075</span><span id="line-75">        String vImagePath = "" + pImageName; // to change the directory</span>
-<span class="source-line-no">076</span><span id="line-76">        URL vImageURL = this.getClass().getClassLoader().getResource( vImagePath );</span>
-<span class="source-line-no">077</span><span id="line-77">        if ( vImageURL == null )</span>
-<span class="source-line-no">078</span><span id="line-78">            System.out.println( "Image not found : " + vImagePath );</span>
-<span class="source-line-no">079</span><span id="line-79">        else {</span>
-<span class="source-line-no">080</span><span id="line-80">            ImageIcon vIcon = new ImageIcon( vImageURL );</span>
-<span class="source-line-no">081</span><span id="line-81">            this.aImage.setIcon( vIcon );</span>
-<span class="source-line-no">082</span><span id="line-82">            this.aMyFrame.pack();</span>
-<span class="source-line-no">083</span><span id="line-83">        }</span>
-<span class="source-line-no">084</span><span id="line-84">    } // showImage(.)</span>
-<span class="source-line-no">085</span><span id="line-85"></span>
-<span class="source-line-no">086</span><span id="line-86">    /**</span>
-<span class="source-line-no">087</span><span id="line-87">     * Enable or disable input in the entry field.</span>
-<span class="source-line-no">088</span><span id="line-88">     * @param pOnOff booleen</span>
-<span class="source-line-no">089</span><span id="line-89">     */</span>
-<span class="source-line-no">090</span><span id="line-90">    public void enable( final boolean pOnOff )</span>
-<span class="source-line-no">091</span><span id="line-91">    {</span>
-<span class="source-line-no">092</span><span id="line-92">        this.aEntryField.setEditable( pOnOff ); // enable/disable</span>
-<span class="source-line-no">093</span><span id="line-93">        if ( pOnOff ) { // enable</span>
-<span class="source-line-no">094</span><span id="line-94">            this.aEntryField.getCaret().setBlinkRate( 500 ); // cursor blink</span>
-<span class="source-line-no">095</span><span id="line-95">            this.aEntryField.addActionListener( this ); // reacts to entry</span>
-<span class="source-line-no">096</span><span id="line-96">        }</span>
-<span class="source-line-no">097</span><span id="line-97">        else { // disable</span>
-<span class="source-line-no">098</span><span id="line-98">            this.aEntryField.getCaret().setBlinkRate( 0 ); // cursor won't blink</span>
-<span class="source-line-no">099</span><span id="line-99">            this.aEntryField.removeActionListener( this ); // won't react to entry</span>
-<span class="source-line-no">100</span><span id="line-100">        }</span>
-<span class="source-line-no">101</span><span id="line-101">    } // enable(.)</span>
-<span class="source-line-no">102</span><span id="line-102"></span>
-<span class="source-line-no">103</span><span id="line-103">    /**</span>
-<span class="source-line-no">104</span><span id="line-104">     * Set up graphical user interface.</span>
-<span class="source-line-no">105</span><span id="line-105">     */</span>
-<span class="source-line-no">106</span><span id="line-106">    private void createGUI()</span>
-<span class="source-line-no">107</span><span id="line-107">    {</span>
-<span class="source-line-no">108</span><span id="line-108">        this.aMyFrame = new JFrame( "3417." );</span>
-<span class="source-line-no">109</span><span id="line-109">        this.aEntryField = new JTextField( 34 );</span>
-<span class="source-line-no">110</span><span id="line-110">        this.aEntryField.enable(false);</span>
-<span class="source-line-no">111</span><span id="line-111">        </span>
-<span class="source-line-no">112</span><span id="line-112">        this.aLog = new JTextArea();</span>
-<span class="source-line-no">113</span><span id="line-113">        this.aLog.setEditable( false );</span>
-<span class="source-line-no">114</span><span id="line-114">        JScrollPane vListScroller = new JScrollPane( this.aLog );</span>
-<span class="source-line-no">115</span><span id="line-115">        vListScroller.setPreferredSize( new Dimension(200, 200) );</span>
-<span class="source-line-no">116</span><span id="line-116">        vListScroller.setMinimumSize( new Dimension(100,100) );</span>
-<span class="source-line-no">117</span><span id="line-117">        </span>
-<span class="source-line-no">118</span><span id="line-118">        this.aButton = new JButton("start!");// bouton de départ</span>
-<span class="source-line-no">119</span><span id="line-119">        </span>
-<span class="source-line-no">120</span><span id="line-120">        aMyFrame.add(this.aButton,BorderLayout.EAST); // positionné à droite de la fenêtre</span>
-<span class="source-line-no">121</span><span id="line-121"></span>
-<span class="source-line-no">122</span><span id="line-122">        this.aImage = new JLabel();</span>
-<span class="source-line-no">123</span><span id="line-123"></span>
-<span class="source-line-no">124</span><span id="line-124">        JPanel vPanel = new JPanel();</span>
-<span class="source-line-no">125</span><span id="line-125">        vPanel.setLayout( new BorderLayout() ); // ==&gt; only five places</span>
-<span class="source-line-no">126</span><span id="line-126">        vPanel.add( this.aImage, BorderLayout.NORTH );</span>
-<span class="source-line-no">127</span><span id="line-127">        vPanel.add( vListScroller, BorderLayout.CENTER );</span>
-<span class="source-line-no">128</span><span id="line-128">        vPanel.add( this.aEntryField, BorderLayout.SOUTH );</span>
-<span class="source-line-no">129</span><span id="line-129"></span>
-<span class="source-line-no">130</span><span id="line-130">        this.aMyFrame.getContentPane().add( vPanel, BorderLayout.CENTER );</span>
+<span class="source-line-no">036</span><span id="line-36">    private JButton aButton2;</span>
+<span class="source-line-no">037</span><span id="line-37">    </span>
+<span class="source-line-no">038</span><span id="line-38">    /**</span>
+<span class="source-line-no">039</span><span id="line-39">     * Construct a UserInterface. As a parameter, a Game Engine</span>
+<span class="source-line-no">040</span><span id="line-40">     * (an object processing and executing the game commands) is</span>
+<span class="source-line-no">041</span><span id="line-41">     * needed.</span>
+<span class="source-line-no">042</span><span id="line-42">     * </span>
+<span class="source-line-no">043</span><span id="line-43">     * @param pGameEngine The GameEngine object implementing the game logic.</span>
+<span class="source-line-no">044</span><span id="line-44">     */</span>
+<span class="source-line-no">045</span><span id="line-45">    public UserInterface( final GameEngine pGameEngine )</span>
+<span class="source-line-no">046</span><span id="line-46">    {</span>
+<span class="source-line-no">047</span><span id="line-47">        this.aEngine = pGameEngine;</span>
+<span class="source-line-no">048</span><span id="line-48">        this.createGUI();</span>
+<span class="source-line-no">049</span><span id="line-49">    } // UserInterface(.)</span>
+<span class="source-line-no">050</span><span id="line-50"></span>
+<span class="source-line-no">051</span><span id="line-51">    /**</span>
+<span class="source-line-no">052</span><span id="line-52">     * Print out some text into the text area.</span>
+<span class="source-line-no">053</span><span id="line-53">     * @param pText chaine de caracteres</span>
+<span class="source-line-no">054</span><span id="line-54">     */</span>
+<span class="source-line-no">055</span><span id="line-55">    public void print( final String pText )</span>
+<span class="source-line-no">056</span><span id="line-56">    {</span>
+<span class="source-line-no">057</span><span id="line-57">        this.aLog.append( pText );</span>
+<span class="source-line-no">058</span><span id="line-58">        this.aLog.setCaretPosition( this.aLog.getDocument().getLength() );</span>
+<span class="source-line-no">059</span><span id="line-59">    } // print(.)</span>
+<span class="source-line-no">060</span><span id="line-60"></span>
+<span class="source-line-no">061</span><span id="line-61">    /**</span>
+<span class="source-line-no">062</span><span id="line-62">     * Print out some text into the text area, followed by a line break.</span>
+<span class="source-line-no">063</span><span id="line-63">     * @param pText texte écrit dans la fenêtre</span>
+<span class="source-line-no">064</span><span id="line-64">    */</span>
+<span class="source-line-no">065</span><span id="line-65">    public void println( final String pText )</span>
+<span class="source-line-no">066</span><span id="line-66">    {</span>
+<span class="source-line-no">067</span><span id="line-67">        this.print( pText + "\n" );</span>
+<span class="source-line-no">068</span><span id="line-68">    } // println(.)</span>
+<span class="source-line-no">069</span><span id="line-69"></span>
+<span class="source-line-no">070</span><span id="line-70">    /**</span>
+<span class="source-line-no">071</span><span id="line-71">     * Show an image file in the interface.</span>
+<span class="source-line-no">072</span><span id="line-72">     * @param pImageName nom de l'image</span>
+<span class="source-line-no">073</span><span id="line-73">     */</span>
+<span class="source-line-no">074</span><span id="line-74">    public void showImage( final String pImageName )</span>
+<span class="source-line-no">075</span><span id="line-75">    {</span>
+<span class="source-line-no">076</span><span id="line-76">        String vImagePath = "" + pImageName; // to change the directory</span>
+<span class="source-line-no">077</span><span id="line-77">        URL vImageURL = this.getClass().getClassLoader().getResource( vImagePath );</span>
+<span class="source-line-no">078</span><span id="line-78">        if ( vImageURL == null )</span>
+<span class="source-line-no">079</span><span id="line-79">            System.out.println( "Image not found : " + vImagePath );</span>
+<span class="source-line-no">080</span><span id="line-80">        else {</span>
+<span class="source-line-no">081</span><span id="line-81">            ImageIcon vIcon = new ImageIcon( vImageURL );</span>
+<span class="source-line-no">082</span><span id="line-82">            this.aImage.setIcon( vIcon );</span>
+<span class="source-line-no">083</span><span id="line-83">            this.aMyFrame.pack();</span>
+<span class="source-line-no">084</span><span id="line-84">        }</span>
+<span class="source-line-no">085</span><span id="line-85">    } // showImage(.)</span>
+<span class="source-line-no">086</span><span id="line-86"></span>
+<span class="source-line-no">087</span><span id="line-87">    /**</span>
+<span class="source-line-no">088</span><span id="line-88">     * Enable or disable input in the entry field.</span>
+<span class="source-line-no">089</span><span id="line-89">     * @param pOnOff booleen</span>
+<span class="source-line-no">090</span><span id="line-90">     */</span>
+<span class="source-line-no">091</span><span id="line-91">    public void enable( final boolean pOnOff )</span>
+<span class="source-line-no">092</span><span id="line-92">    {</span>
+<span class="source-line-no">093</span><span id="line-93">        this.aEntryField.setEditable( pOnOff ); // enable/disable</span>
+<span class="source-line-no">094</span><span id="line-94">        if ( pOnOff ) { // enable</span>
+<span class="source-line-no">095</span><span id="line-95">            this.aEntryField.getCaret().setBlinkRate( 500 ); // cursor blink</span>
+<span class="source-line-no">096</span><span id="line-96">            this.aEntryField.addActionListener( this ); // reacts to entry</span>
+<span class="source-line-no">097</span><span id="line-97">        }</span>
+<span class="source-line-no">098</span><span id="line-98">        else { // disable</span>
+<span class="source-line-no">099</span><span id="line-99">            this.aEntryField.getCaret().setBlinkRate( 0 ); // cursor won't blink</span>
+<span class="source-line-no">100</span><span id="line-100">            this.aEntryField.removeActionListener( this ); // won't react to entry</span>
+<span class="source-line-no">101</span><span id="line-101">        }</span>
+<span class="source-line-no">102</span><span id="line-102">    } // enable(.)</span>
+<span class="source-line-no">103</span><span id="line-103"></span>
+<span class="source-line-no">104</span><span id="line-104">    /**</span>
+<span class="source-line-no">105</span><span id="line-105">     * Set up graphical user interface.</span>
+<span class="source-line-no">106</span><span id="line-106">     */</span>
+<span class="source-line-no">107</span><span id="line-107">    private void createGUI()</span>
+<span class="source-line-no">108</span><span id="line-108">    {</span>
+<span class="source-line-no">109</span><span id="line-109">        this.aMyFrame = new JFrame( "3417." );</span>
+<span class="source-line-no">110</span><span id="line-110">        this.aEntryField = new JTextField( 34 );</span>
+<span class="source-line-no">111</span><span id="line-111">        this.aEntryField.enable(false);</span>
+<span class="source-line-no">112</span><span id="line-112">        </span>
+<span class="source-line-no">113</span><span id="line-113">        this.aLog = new JTextArea();</span>
+<span class="source-line-no">114</span><span id="line-114">        this.aLog.setEditable( false );</span>
+<span class="source-line-no">115</span><span id="line-115">        JScrollPane vListScroller = new JScrollPane( this.aLog );</span>
+<span class="source-line-no">116</span><span id="line-116">        vListScroller.setPreferredSize( new Dimension(200, 200) );</span>
+<span class="source-line-no">117</span><span id="line-117">        vListScroller.setMinimumSize( new Dimension(100,100) );</span>
+<span class="source-line-no">118</span><span id="line-118">        </span>
+<span class="source-line-no">119</span><span id="line-119">        this.aButton = new JButton("start!"); // bouton de départ</span>
+<span class="source-line-no">120</span><span id="line-120">        this.aButton2 = new JButton("quest");</span>
+<span class="source-line-no">121</span><span id="line-121">        </span>
+<span class="source-line-no">122</span><span id="line-122">        aMyFrame.add(this.aButton,BorderLayout.EAST); // positionné à droite de la fenêtre</span>
+<span class="source-line-no">123</span><span id="line-123">        </span>
+<span class="source-line-no">124</span><span id="line-124">        this.aImage = new JLabel();</span>
+<span class="source-line-no">125</span><span id="line-125">    </span>
+<span class="source-line-no">126</span><span id="line-126">        JPanel vPanel = new JPanel();</span>
+<span class="source-line-no">127</span><span id="line-127">        vPanel.setLayout( new BorderLayout() ); // ==&gt; only five places</span>
+<span class="source-line-no">128</span><span id="line-128">        vPanel.add( this.aImage, BorderLayout.NORTH );</span>
+<span class="source-line-no">129</span><span id="line-129">        vPanel.add( vListScroller, BorderLayout.CENTER );</span>
+<span class="source-line-no">130</span><span id="line-130">        vPanel.add( this.aEntryField, BorderLayout.SOUTH );</span>
 <span class="source-line-no">131</span><span id="line-131"></span>
-<span class="source-line-no">132</span><span id="line-132">        // add some event listeners to some components</span>
-<span class="source-line-no">133</span><span id="line-133">        this.aEntryField.addActionListener( this );</span>
-<span class="source-line-no">134</span><span id="line-134">        this.aButton.addActionListener(this);</span>
-<span class="source-line-no">135</span><span id="line-135">        </span>
-<span class="source-line-no">136</span><span id="line-136">        // to end program when window is closed</span>
-<span class="source-line-no">137</span><span id="line-137">        this.aMyFrame.addWindowListener(</span>
-<span class="source-line-no">138</span><span id="line-138">            new WindowAdapter() { // anonymous class</span>
-<span class="source-line-no">139</span><span id="line-139">                /** Ferme la fenêtre du jeu.</span>
-<span class="source-line-no">140</span><span id="line-140">                 * @param pE WindowEvent</span>
-<span class="source-line-no">141</span><span id="line-141">                 */</span>
-<span class="source-line-no">142</span><span id="line-142">                @Override public void windowClosing(final WindowEvent pE)</span>
-<span class="source-line-no">143</span><span id="line-143">                {</span>
-<span class="source-line-no">144</span><span id="line-144">                    System.exit(0);</span>
-<span class="source-line-no">145</span><span id="line-145">                }</span>
-<span class="source-line-no">146</span><span id="line-146">        } );</span>
-<span class="source-line-no">147</span><span id="line-147"></span>
-<span class="source-line-no">148</span><span id="line-148">        this.aMyFrame.pack();</span>
-<span class="source-line-no">149</span><span id="line-149">        this.aMyFrame.setVisible( true );</span>
-<span class="source-line-no">150</span><span id="line-150">        this.aEntryField.requestFocus();</span>
-<span class="source-line-no">151</span><span id="line-151">    } // createGUI()</span>
-<span class="source-line-no">152</span><span id="line-152"></span>
-<span class="source-line-no">153</span><span id="line-153">    /**</span>
-<span class="source-line-no">154</span><span id="line-154">     * Actionlistener interface for entry textfield.</span>
-<span class="source-line-no">155</span><span id="line-155">     * @param pE ActionEvent</span>
-<span class="source-line-no">156</span><span id="line-156">     */</span>
-<span class="source-line-no">157</span><span id="line-157">    @Override public void actionPerformed( final ActionEvent pE ) </span>
-<span class="source-line-no">158</span><span id="line-158">    {</span>
-<span class="source-line-no">159</span><span id="line-159">        if(pE.getSource() == this.aButton){ // si le bouton est utilisé</span>
-<span class="source-line-no">160</span><span id="line-160">            aMyFrame.remove(aButton); // le bouton est retiré</span>
-<span class="source-line-no">161</span><span id="line-161"></span>
-<span class="source-line-no">162</span><span id="line-162">            </span>
-<span class="source-line-no">163</span><span id="line-163">            this.aMyFrame.setVisible(false);// on réactualise la fenêtre</span>
-<span class="source-line-no">164</span><span id="line-164">            this.aMyFrame.pack();           </span>
-<span class="source-line-no">165</span><span id="line-165">            this.aMyFrame.setVisible( true );</span>
-<span class="source-line-no">166</span><span id="line-166">            </span>
-<span class="source-line-no">167</span><span id="line-167">            // et le texte start considéré comme commande est automatiquement entrée dans l'Entry Field</span>
-<span class="source-line-no">168</span><span id="line-168"></span>
-<span class="source-line-no">169</span><span id="line-169">            this.aEntryField.enable(true); // l'EntryField est ensuite activée pour être utilisable par l'utilisateur</span>
-<span class="source-line-no">170</span><span id="line-170">            this.aEntryField.setText( "look" );</span>
-<span class="source-line-no">171</span><span id="line-171">            this.aMyFrame.setVisible( true ); // on réactualise la fenêtre</span>
-<span class="source-line-no">172</span><span id="line-172">        }</span>
-<span class="source-line-no">173</span><span id="line-173">        // because there is only one possible action (text input) :</span>
-<span class="source-line-no">174</span><span id="line-174">        this.processCommand(); // never suppress this line</span>
-<span class="source-line-no">175</span><span id="line-175">    } // actionPerformed(.)</span>
-<span class="source-line-no">176</span><span id="line-176"></span>
-<span class="source-line-no">177</span><span id="line-177">    /**</span>
-<span class="source-line-no">178</span><span id="line-178">     * A command has been entered in the entry field.  </span>
-<span class="source-line-no">179</span><span id="line-179">     * Read the command and do whatever is necessary to process it.</span>
-<span class="source-line-no">180</span><span id="line-180">     */</span>
-<span class="source-line-no">181</span><span id="line-181">    private void processCommand()</span>
-<span class="source-line-no">182</span><span id="line-182">    {</span>
-<span class="source-line-no">183</span><span id="line-183">        String vInput = this.aEntryField.getText();</span>
-<span class="source-line-no">184</span><span id="line-184">        this.aEntryField.setText( "" );</span>
-<span class="source-line-no">185</span><span id="line-185">        </span>
-<span class="source-line-no">186</span><span id="line-186">        this.aEngine.interpretCommand( vInput );</span>
-<span class="source-line-no">187</span><span id="line-187">    } // processCommand()</span>
-<span class="source-line-no">188</span><span id="line-188">} // UserInterface </span>
+<span class="source-line-no">132</span><span id="line-132">        this.aMyFrame.getContentPane().add( vPanel, BorderLayout.CENTER );</span>
+<span class="source-line-no">133</span><span id="line-133"></span>
+<span class="source-line-no">134</span><span id="line-134">        // add some event listeners to some components</span>
+<span class="source-line-no">135</span><span id="line-135">        this.aEntryField.addActionListener( this );</span>
+<span class="source-line-no">136</span><span id="line-136">        this.aButton.addActionListener(this);</span>
+<span class="source-line-no">137</span><span id="line-137">        this.aButton2.addActionListener(this);</span>
+<span class="source-line-no">138</span><span id="line-138">        </span>
+<span class="source-line-no">139</span><span id="line-139">        // to end program when window is closed</span>
+<span class="source-line-no">140</span><span id="line-140">        this.aMyFrame.addWindowListener(</span>
+<span class="source-line-no">141</span><span id="line-141">            new WindowAdapter() { // anonymous class</span>
+<span class="source-line-no">142</span><span id="line-142">                /** Ferme la fenêtre du jeu.</span>
+<span class="source-line-no">143</span><span id="line-143">                 * @param pE WindowEvent</span>
+<span class="source-line-no">144</span><span id="line-144">                 */</span>
+<span class="source-line-no">145</span><span id="line-145">                @Override public void windowClosing(final WindowEvent pE)</span>
+<span class="source-line-no">146</span><span id="line-146">                {</span>
+<span class="source-line-no">147</span><span id="line-147">                    System.exit(0);</span>
+<span class="source-line-no">148</span><span id="line-148">                }</span>
+<span class="source-line-no">149</span><span id="line-149">        } );</span>
+<span class="source-line-no">150</span><span id="line-150"></span>
+<span class="source-line-no">151</span><span id="line-151">        this.aMyFrame.pack();</span>
+<span class="source-line-no">152</span><span id="line-152">        this.aMyFrame.setVisible( true );</span>
+<span class="source-line-no">153</span><span id="line-153">        this.aEntryField.requestFocus();</span>
+<span class="source-line-no">154</span><span id="line-154">    } // createGUI()</span>
+<span class="source-line-no">155</span><span id="line-155"></span>
+<span class="source-line-no">156</span><span id="line-156">    /**</span>
+<span class="source-line-no">157</span><span id="line-157">     * Actionlistener interface for entry textfield.</span>
+<span class="source-line-no">158</span><span id="line-158">     * @param pE ActionEvent</span>
+<span class="source-line-no">159</span><span id="line-159">     */</span>
+<span class="source-line-no">160</span><span id="line-160">    @Override public void actionPerformed( final ActionEvent pE ) </span>
+<span class="source-line-no">161</span><span id="line-161">    {</span>
+<span class="source-line-no">162</span><span id="line-162">        if(pE.getSource() == this.aButton){ // si le bouton est utilisé</span>
+<span class="source-line-no">163</span><span id="line-163">            aMyFrame.remove(this.aButton); // le bouton est retiré</span>
+<span class="source-line-no">164</span><span id="line-164">            aMyFrame.add(this.aButton2,BorderLayout.WEST);</span>
+<span class="source-line-no">165</span><span id="line-165">            this.aMyFrame.setVisible(false);// on réactualise la fenêtre</span>
+<span class="source-line-no">166</span><span id="line-166">            this.aMyFrame.pack();           </span>
+<span class="source-line-no">167</span><span id="line-167">            this.aMyFrame.setVisible(true);</span>
+<span class="source-line-no">168</span><span id="line-168">            </span>
+<span class="source-line-no">169</span><span id="line-169">            // et le texte start considéré comme commande est automatiquement entrée dans l'Entry Field</span>
+<span class="source-line-no">170</span><span id="line-170"></span>
+<span class="source-line-no">171</span><span id="line-171">            this.aEntryField.enable(true); // l'EntryField est ensuite activée pour être utilisable par l'utilisateur</span>
+<span class="source-line-no">172</span><span id="line-172">            this.aEntryField.setText( "look" );</span>
+<span class="source-line-no">173</span><span id="line-173">            this.aMyFrame.setVisible( true ); // on réactualise la fenêtre</span>
+<span class="source-line-no">174</span><span id="line-174">        }</span>
+<span class="source-line-no">175</span><span id="line-175">        if(pE.getSource() == this.aButton2){</span>
+<span class="source-line-no">176</span><span id="line-176">            this.aEntryField.setText( "quest" );</span>
+<span class="source-line-no">177</span><span id="line-177">        }</span>
+<span class="source-line-no">178</span><span id="line-178">        // because there is only one possible action (text input) :</span>
+<span class="source-line-no">179</span><span id="line-179">        this.processCommand(); // never suppress this line</span>
+<span class="source-line-no">180</span><span id="line-180">    } // actionPerformed(.)</span>
+<span class="source-line-no">181</span><span id="line-181"></span>
+<span class="source-line-no">182</span><span id="line-182">    /**</span>
+<span class="source-line-no">183</span><span id="line-183">     * A command has been entered in the entry field.  </span>
+<span class="source-line-no">184</span><span id="line-184">     * Read the command and do whatever is necessary to process it.</span>
+<span class="source-line-no">185</span><span id="line-185">     */</span>
+<span class="source-line-no">186</span><span id="line-186">    private void processCommand()</span>
+<span class="source-line-no">187</span><span id="line-187">    {</span>
+<span class="source-line-no">188</span><span id="line-188">        String vInput = this.aEntryField.getText();</span>
+<span class="source-line-no">189</span><span id="line-189">        this.aEntryField.setText( "" );</span>
+<span class="source-line-no">190</span><span id="line-190">        </span>
+<span class="source-line-no">191</span><span id="line-191">        this.aEngine.interpretCommand( vInput );</span>
+<span class="source-line-no">192</span><span id="line-192">    } // processCommand()</span>
+<span class="source-line-no">193</span><span id="line-193">} // UserInterface </span>
 
 
 

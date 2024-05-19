@@ -118,4 +118,13 @@ public class Room
     public ItemList getItems(){
         return this.aItems;
     }
+    
+    /** 
+     * Fonction qui retourne une booléen le bon fonctionnement de back pour la TrapDoor
+     * @return retourne un booléen
+     * @param pRoom pièce entrée
+     */
+    public boolean isExit(final Room pRoom){
+        return(this.aExits.containsValue(pRoom));
+    }
 } // Room

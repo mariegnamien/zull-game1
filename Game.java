@@ -6,6 +6,7 @@
 public class Game{
     private UserInterface aGui;
     private GameEngine aEngine;
+    
     /**
      * Constructeur vide
      */

@@ -17,13 +17,12 @@ public class GameEngine
     private UserInterface aGui;
     private Parser aParser;
     private Player aPlayer;
-    
+    private String aName;
     /**
     * Constructeur du jeu où les pièces sont créées.
     */
     public GameEngine() {
-        String vPrenom = javax.swing.JOptionPane.showInputDialog( "what is your name ?" );
-        this.aPlayer = new Player(vPrenom);
+        this.aPlayer = new Player();
         this.createRooms();
         this.aParser = new Parser();
     }//GameEngine()
@@ -55,7 +54,7 @@ public class GameEngine
     */
     private void printWelcome(){
     this.aGui.print("\n");
-    this.aGui.println("Welcome to 3417.");
+    this.aGui.println("Welcome to 3417, " + this.aPlayer.getName() + ".");
     this.aGui.print("\n");
     this.aGui.println("Another day in this boring place..."); 
     this.aGui.println("Grandpa asked me to help with stuff at the store today.");
@@ -85,6 +84,9 @@ public class GameEngine
         Room vPlatform = new Room("on the Platform","platform.jpg");
         Room vSecretBasement = new Room("at the secret basement entrance","secretbasement.jpg");
         Room vArena = new Room("in the arena","arena.jpg");
+        Room vTrapDoor = new Room("footbridge","door.jpg");
+        Room vTrapDoor2 = new Room("lost place","lost place.jpg");
+        
         
         Item vKeyCard = new Item("keyCard","keyCard - a transparent keycard made out of glass.", 5);
         Item vBroom = new Item("broom","broom - an old and dusty broom.", 700);
@@ -93,8 +95,7 @@ public class GameEngine
         Item vArticulatedArmV1 = new Item("armV1"," armV1 - Articulated Arm V1 \" based on a low technology quality \" ", 1250);
         Item vPills = new Item("pills", " pills - purple pills : \" do not consume these without a doctor's advice. \" ", 5);
         Item vMagicCookie = new Item("magicCookie", "magic Cookie - ???",100);
-        
-        
+        Beamer vBeamer = new Beamer();        
         
         vSecretBasement.addItem("pills",vPills);
         vBricABrac.addItem("armV1", vArticulatedArmV1);
@@ -104,6 +105,7 @@ public class GameEngine
         vRoom.addItem("keyCard",vKeyCard);
         vBasement.addItem("broom",vBroom);
         vBasement.addItem("milk", vMilk);
+        vBricABrac.addItem("beamer",vBeamer);
         
         vConvenienceStore.setExit("north",vStreet2);
         vConvenienceStore.setExit("down", vBasement);
@@ -119,7 +121,7 @@ public class GameEngine
         vStreet2.setExit("north", null);
         vStreet2.setExit("south", vConvenienceStore);
         vStreet2.setExit("west", null);
-        vStreet2.setExit("east", null);
+        vStreet2.setExit("east", vTrapDoor2);
         
         vStreet3.setExit("north", null);
         vStreet3.setExit("south", vTrainStation);
@@ -160,7 +162,7 @@ public class GameEngine
         vPlatform.setExit("east", vSecretBasement); 
 
         vSecretBasement.setExit("north", null);
-        vSecretBasement.setExit("south", null);
+        vSecretBasement.setExit("south", vTrapDoor);
         vSecretBasement.setExit("west", vPlatform);
         vSecretBasement.setExit("east", vArena); 
         
@@ -169,6 +171,12 @@ public class GameEngine
         vArena.setExit("west",vSecretBasement);
         vArena.setExit("east",null);
         
+        vTrapDoor.setExit("north",vSecretBasement);
+        vTrapDoor.setExit("down",vConvenienceStore);
+        
+        vTrapDoor2.setExit("west", vStreet2);
+        vTrapDoor2.setExit("south",vSecretBasement);
+        
         this.aPlayer.changeRoom(vConvenienceStore);
     }//createRooms()
     
@@ -176,7 +184,7 @@ public class GameEngine
         *
         * Affiche la description du lieu actuel.
         */
-    private void look(){
+    private void look(){//
         this.aGui.println(this.aPlayer.getCurrentRoom().getLongDescription());
     }//look()
     
@@ -184,7 +192,7 @@ public class GameEngine
         *   Affiche un message dans la fenêtre lorsque l'utilisateur entre la commande eat 
         * @param pItem nom de l'Item
         */
-    private void eat(final String pItem){
+    private void eat(final String pItem){//
         if(pItem.equals("magicCookie")){
             this.aPlayer.changeMaxWeight();
             this.aPlayer.getInventory().removeItem(pItem);
@@ -197,7 +205,7 @@ public class GameEngine
         /**
         * Permet de revenir dans la salle précédente une fois la commande entrée par l'utilisateur.
         */
-    private void back(){
+    private void back(){//
         if(this.aPlayer.back()){
             this.printLocationInfo();
         }
@@ -258,6 +266,10 @@ public class GameEngine
                 this.aGui.println("You must find the broom... Try again.");
                 this.endGame();
             }
+            if(this.aPlayer.getSteps() < 3 && this.aPlayer.getInventory().getItem("broom") != null){
+                this.aPlayer.enableQuest(false);
+                this.aGui.println("Good job, you found the broom.");
+            }            
             }
             else{
             this.aPlayer.addStackRoom();
@@ -269,7 +281,7 @@ public class GameEngine
             this.look();
         }
         else if(vCommandWord.equals("eat")){
-            if(vCommand.hasSecondWord() && this.aPlayer.getInventory().containsItem(vCommand.getSecondWord())){
+            if(vCommand.hasSecondWord() && this.aPlayer.getInventory().containsItem(vCommand.getSecondWord())){//
                 this.eat(vCommand.getSecondWord());
             }
             else{
@@ -287,8 +299,11 @@ public class GameEngine
         }
         else if(vCommandWord.equals("take")){
             if(vCommand.hasSecondWord()){
-                if(this.aPlayer.getCurrentRoom().getItems().containsItem(vCommand.getSecondWord())){
+                if(this.aPlayer.getCurrentRoom().getItems().containsItem(vCommand.getSecondWord())){//
                 this.aGui.println(this.aPlayer.take(vCommand.getSecondWord()));
+                if(vCommand.getSecondWord().equals("beamer")){
+                    this.aGui.println("You need to charge the beamer in another room.");
+                }
             } 
             
             else{
@@ -302,7 +317,7 @@ public class GameEngine
         
         else if(vCommandWord.equals("drop")){
             if(vCommand.hasSecondWord()){
-                if(!this.aPlayer.getCurrentRoom().getItems().containsItem(vCommand.getSecondWord())){
+                if(!this.aPlayer.getCurrentRoom().getItems().containsItem(vCommand.getSecondWord())){//
                 this.aPlayer.drop(vCommand.getSecondWord());
                 }
                 else{
@@ -346,8 +361,36 @@ public class GameEngine
             }
         }
         else if(vCommandWord.equals("quest")){
-            this.aPlayer.enableQuest(true);
+            if(this.aPlayer.getQuest()){
             this.aGui.println("Find the broom to clean the store");
+            }
+            else if(!this.aPlayer.getQuest()){
+                this.aGui.println("There is no quest...");
+            }
+        }
+        else if(vCommandWord.equals("charge")){
+            if(!vCommand.hasSecondWord()){
+                this.aGui.println("Charge what ?...");
+            
+            }
+            else if(vCommand.hasSecondWord()){
+            if(!vCommand.getSecondWord().equals("beamer")){
+                    this.aGui.println("You can't charge this...");
+                }
+            else if(vCommand.getSecondWord().equals("beamer")){
+                this.aGui.println(this.aPlayer.charge());
+            }
+            }
+            }
+        else if(vCommandWord.equals("fire")){
+            if(vCommand.hasSecondWord()){
+                this.aGui.println("You can't do this...");
+            }
+            else if(!vCommand.hasSecondWord()){
+                this.aGui.println(this.aPlayer.fire());
+                this.aGui.println("");
+                this.printLocationInfo();
+            }
         }
         else{
             this.aGui.println("Erreur du programmeur : commande non reconnue !");
