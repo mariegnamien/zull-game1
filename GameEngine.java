@@ -196,6 +196,7 @@ public class GameEngine
         if(pItem.equals("magicCookie")){
             this.aPlayer.changeMaxWeight();
             this.aPlayer.getInventory().removeItem(pItem);
+            this.aGui.println("You can carry a lot more items in your inventory now.");
         }
         else{
         this.aGui.println("You have eaten now and you are not hungry any more.");
@@ -274,7 +275,6 @@ public class GameEngine
             else{
             this.aPlayer.addStackRoom();
             this.goRoom(vCommand);
-            
         }
         }
         else if(vCommandWord.equals("look")){

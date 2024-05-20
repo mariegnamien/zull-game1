@@ -1,7 +1,10 @@
 go down
+take broom
 go up 
-go down 
-go up
-go south
-go north 
+go west
 go north
+take beamer
+go south
+charge beamer
+go east
+fire

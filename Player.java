@@ -53,7 +53,7 @@ public class Player
      * @return retourne un booléen
      */
     public boolean back(){
-        if((!this.aRoomStack.empty()) && this.aRoomStack.pop().isExit(this.aCurrentRoom)){
+        if((!this.aRoomStack.empty()) && this.aCurrentRoom.isExit(this.aRoomStack.peek())){
         this.changeRoom(this.aRoomStack.pop());
         return true;
         }

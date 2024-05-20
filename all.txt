@@ -1,34 +1,62 @@
 take magicCookie
 eat magicCookie
-take gums
-go south 
-go north
+quest
 go down
 take broom
-take milk
-items 
-go east 
+go north
+go south
+go west 
+go east
+go north
+go south 
+go east
+take lighter
 go west
+go there
+go up
+take gums
+go south 
 drop gums
+g
+take keycard
+drop keycard
+go north
+items
+drop broom 
+go east 
 go up
 go north
 go south
 go west
 go north 
 go south
-go east
-go east
-go south
 go south
 go east
 go east
 go west
-go west
+go south
 go north
-go north
-go west
+go south
+go down
 back
 look
 help
 eat
-
+go south
+go down
+go north 
+charge
+charge beamer
+fire
+take beamer
+go south
+go west
+go north
+take beamer
+charge beamer
+go south 
+charge beamer
+fire
+go east
+fire
+quit

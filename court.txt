@@ -1,3 +1,6 @@
 go north
 back
 help
+look 
+go down 
+go up

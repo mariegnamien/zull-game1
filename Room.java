@@ -125,6 +125,6 @@ public class Room
      * @param pRoom pièce entrée
      */
     public boolean isExit(final Room pRoom){
-        return(this.aExits.containsValue(pRoom));
+        return this.aExits.containsValue(pRoom);
     }
 } // Room
