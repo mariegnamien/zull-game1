@@ -33,7 +33,15 @@ public class Room
     public void addItem(final String pNom, final Item pItem){
         this.aItems.addItem(pNom,pItem);
     }//addItem(.)
-
+    
+    public void removeItem(final String pNom){
+        this.aItems.removeItem(pNom);
+    }
+    
+    public boolean containsItem(final String pNom){
+        return this.aItems.containsItem(pNom);
+    }
+    
     /**
     * Retourne la description d'une pièce.
     * @return Retourne la description de la pièce courante.
@@ -76,22 +84,18 @@ public class Room
     }//getExitString()
     
     
+    
     /** Fonction qui Retourne la liste de tous les Items présents dans la pièce courante.
      * @return Retourne la liste de tous les Items présents dans la pièce courante
     */
     public String getItemString(){
-        StringBuilder vReturn = new StringBuilder("Items : ");
-        Set<String> vMesCles;
-        vMesCles = this.aItems.keySetList();
-        
-        if(this.aItems.keySetList().size() == 0){
-            return "No Items here...";
+        String vReturn = "Items : ";
+        if(this.aItems.getItemString().equals("No items here...")){
+            return "No items here...";
         }
-        
-        for(String nom : vMesCles){
-            vReturn.append(this.aItems.getItem(nom).getItemDescription() + "; ");
+        else{
+            return this.aItems.getItemString();
         }
-        return vReturn.toString();
         }//getItemString()
     
     /**
@@ -112,11 +116,11 @@ public class Room
     }//getImageName()
     
     /**
-     * Fonction qui retourne l'ensemble des Items présents dans la pièce courante.
-     * @return retourne une ItemList
+     * Fonction qui retourne un des Items présents dans la liste en fonction de nom entré en paramètres.
+     * @return retourne un item
      */
-    public ItemList getItems(){
-        return this.aItems;
+    public Item getItem(final String pNom){
+        return this.aItems.getItem(pNom);
     }
     
     /** 

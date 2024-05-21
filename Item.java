@@ -49,14 +49,14 @@ public class Item
     */
    
    public String getItemString(){
-        StringBuilder vReturn = new StringBuilder ("Item : ");
+        String vReturn = "Item : ";
         if(this.aDescription != null){
-            vReturn.append(this.aDescription);
+            vReturn += this.aDescription;
         }
         else{
             return "No Item here";
         }
-        return vReturn.toString();
+        return vReturn;
     }//getItemString()
 
     /** Fonction qui retourne le poids d'un Item.

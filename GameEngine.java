@@ -84,8 +84,8 @@ public class GameEngine
         Room vPlatform = new Room("on the Platform","platform.jpg");
         Room vSecretBasement = new Room("at the secret basement entrance","secretbasement.jpg");
         Room vArena = new Room("in the arena","arena.jpg");
-        Room vTrapDoor = new Room("footbridge","door.jpg");
-        Room vTrapDoor2 = new Room("lost place","lost place.jpg");
+        Room vTrapDoor = new Room("on the footbridge","door.jpg");
+        Room vTrapDoor2 = new Room("in a lost place","lost place.jpg");
         
         
         Item vKeyCard = new Item("keyCard","keyCard - a transparent keycard made out of glass.", 5);
@@ -94,7 +94,7 @@ public class GameEngine
         Item vGums = new Item("gums", "gums - a box of gums \"for bad breath\" ", 100);
         Item vArticulatedArmV1 = new Item("armV1"," armV1 - Articulated Arm V1 \" based on a low technology quality \" ", 1250);
         Item vPills = new Item("pills", " pills - purple pills : \" do not consume these without a doctor's advice. \" ", 5);
-        Item vMagicCookie = new Item("magicCookie", "magic Cookie - ???",100);
+        Item vMagicCookie = new Item("magicCookie", "magicCookie - ???",100);
         Beamer vBeamer = new Beamer();        
         
         vSecretBasement.addItem("pills",vPills);
@@ -193,14 +193,7 @@ public class GameEngine
         * @param pItem nom de l'Item
         */
     private void eat(final String pItem){//
-        if(pItem.equals("magicCookie")){
-            this.aPlayer.changeMaxWeight();
-            this.aPlayer.getInventory().removeItem(pItem);
-            this.aGui.println("You can carry a lot more items in your inventory now.");
-        }
-        else{
-        this.aGui.println("You have eaten now and you are not hungry any more.");
-        }
+        this.aPlayer.eat(pItem);
     }//eat()
     
         /**
@@ -260,28 +253,28 @@ public class GameEngine
 
         else if(vCommandWord.equals("go")){
             if(this.aPlayer.getQuest() == true){
-            this.aPlayer.addStackRoom();
+            //this.aPlayer.addStackRoom();
             this.goRoom(vCommand);
             this.aPlayer.quest();
-            if(this.aPlayer.getSteps() >= 3 && this.aPlayer.getInventory().getItem("broom") == null){
+            if(this.aPlayer.getSteps() >= 3 && this.aPlayer.hasItemInventory("broom") == false){
                 this.aGui.println("You must find the broom... Try again.");
                 this.endGame();
             }
-            if(this.aPlayer.getSteps() < 3 && this.aPlayer.getInventory().getItem("broom") != null){
+            if(this.aPlayer.getSteps() < 3 && this.aPlayer.hasItemInventory("broom") == true){
                 this.aPlayer.enableQuest(false);
                 this.aGui.println("Good job, you found the broom.");
             }            
             }
             else{
-            this.aPlayer.addStackRoom();
+            //this.aPlayer.addStackRoom();
             this.goRoom(vCommand);
-        }
+            }
         }
         else if(vCommandWord.equals("look")){
             this.look();
         }
         else if(vCommandWord.equals("eat")){
-            if(vCommand.hasSecondWord() && this.aPlayer.getInventory().containsItem(vCommand.getSecondWord())){//
+            if(vCommand.hasSecondWord() && this.aPlayer.hasItemInventory("magicCookie")){//
                 this.eat(vCommand.getSecondWord());
             }
             else{
@@ -299,15 +292,15 @@ public class GameEngine
         }
         else if(vCommandWord.equals("take")){
             if(vCommand.hasSecondWord()){
-                if(this.aPlayer.getCurrentRoom().getItems().containsItem(vCommand.getSecondWord())){//
+                if(this.aPlayer.hasItemRoom(vCommand.getSecondWord())){//
                 this.aGui.println(this.aPlayer.take(vCommand.getSecondWord()));
                 if(vCommand.getSecondWord().equals("beamer")){
                     this.aGui.println("You need to charge the beamer in another room.");
                 }
             } 
-            
+           
             else{
-                this.aGui.println("This item is unavailable..");
+                this.aGui.println("This item is not in this room..");
             }
             }
             else{
@@ -317,11 +310,11 @@ public class GameEngine
         
         else if(vCommandWord.equals("drop")){
             if(vCommand.hasSecondWord()){
-                if(!this.aPlayer.getCurrentRoom().getItems().containsItem(vCommand.getSecondWord())){//
+                if(!this.aPlayer.hasItemRoom(vCommand.getSecondWord())){//
                 this.aPlayer.drop(vCommand.getSecondWord());
                 }
                 else{
-                this.aGui.println("This item is unavailable..");
+                this.aGui.println("This item is not in your inventory..");
                 }
             }
             else{
@@ -428,6 +421,7 @@ public class GameEngine
         vNextRoom = this.aPlayer.getCurrentRoom().getExit(vDirection);
         
         if(vNextRoom != null){
+            this.aPlayer.addStackRoom();
             this.aPlayer.changeRoom(vNextRoom);
             this.aGui.println(this.aPlayer.getCurrentRoom().getLongDescription());
             if(this.aPlayer.getCurrentRoom().getImageName() != null){

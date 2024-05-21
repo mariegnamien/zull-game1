@@ -19,6 +19,7 @@ public class Player
     private boolean aQuest;
     private int aSteps;
     private Beamer aBeamer;
+    private int aWeight;
     
     /**
      * Constructeur d'objets de classe Player
@@ -34,6 +35,7 @@ public class Player
         this.aSteps = 0;
         this.aQuest = true;
         this.aBeamer = new Beamer();
+        this.aWeight = 0;
         // initialisation des variables d'instance
     }
     
@@ -53,13 +55,13 @@ public class Player
      * @return retourne un booléen
      */
     public boolean back(){
-        if((!this.aRoomStack.empty()) && this.aCurrentRoom.isExit(this.aRoomStack.peek())){
+    if((!this.aRoomStack.empty())){ 
+        if(this.aCurrentRoom.isExit(this.aRoomStack.peek())){
         this.changeRoom(this.aRoomStack.pop());
         return true;
         }
-        else{
-            return false;
-        }
+    }
+        return false;
     }
     
     /**
@@ -68,14 +70,6 @@ public class Player
      */
     public void changeRoom(final Room pRoom){
         this.aCurrentRoom = pRoom;
-    }
-    
-    /**
-     * Accesseur qui permet d'obtenir l'inventaire du joueur
-     * @return retourne une TtemList (inventaire du joueur)
-     */
-    public ItemList getInventory(){
-        return this.aInventory;
     }
     
     /**
@@ -98,6 +92,13 @@ public class Player
      * @return retourne une chaîne de caractères
      */
     public String items(){
+       if (this.aInventory.getItemString().equals("No items here...")){
+           return "Your inventory is empty...";
+       }
+       else{
+        return this.aInventory.getItemString() + " total weight : " + this.aWeight;
+        
+        /*
        String vString = "";
        int vWeight = 0;
        Set<String> vCles = this.aInventory.keySetList();
@@ -106,6 +107,19 @@ public class Player
           vWeight += this.aInventory.getItem(item).getItemWeight();
        }
        return "Here are your items :" + vString + " total weight : " + vWeight;
+       */
+    }
+    }
+    public boolean verifyWeight(final int pWeight){
+        return this.aWeight + pWeight < this.aMaxWeight;
+    }
+    
+    public boolean hasItemRoom(final String pWord){
+        return this.aCurrentRoom.containsItem(pWord);
+    }
+    
+    public boolean hasItemInventory(final String pWord){
+        return this.aInventory.containsItem(pWord);
     }
     
     /**
@@ -114,21 +128,18 @@ public class Player
      * @return retourne une chaîne de caractères
      */
     public String take(final String pItem){
-       int vWeight = 0;
-       Set<String> vCles = this.aInventory.keySetList();
-       for(String item : vCles){
-           vWeight += this.aInventory.getItem(item).getItemWeight();
-       }
-       if(vWeight < this.aMaxWeight){
-       this.aInventory.addItem(pItem,this.aCurrentRoom.getItems().getItem(pItem));
+       if(this.verifyWeight(this.aCurrentRoom.getItem(pItem).getItemWeight())){
+       this.aInventory.addItem(pItem,this.aCurrentRoom.getItem(pItem));
+       this.aWeight += this.aCurrentRoom.getItem(pItem).getItemWeight();
+
        if(this.aInventory.containsItem("beamer")){
         this.aBeamer.changeBeamerLocation(this.aCurrentRoom); // lieu où se trouve le beamer
         }
-       this.aCurrentRoom.getItems().removeItem(pItem);
+       this.aCurrentRoom.removeItem(pItem);
            return "The item is now in your inventory.";
         }
        else{
-           return "Your inventory is full, you can't take this item... (maybe eating something could help you with that...)";
+           return "you can't take this item, it is too heavy for you (maybe eating something could help you with that...).";
        }
     }
     
@@ -137,7 +148,7 @@ public class Player
      * @param pItem Item à déposer dans la pièce.
      */
     public void drop(final String pItem){
-        this.aCurrentRoom.getItems().addItem(pItem,this.aInventory.getItem(pItem));
+        this.aCurrentRoom.addItem(pItem,this.aInventory.getItem(pItem));
         this.aInventory.removeItem(pItem);
     }
 
@@ -153,6 +164,14 @@ public class Player
     }
     }
     
+    public String eat(final String pItem){
+        if(pItem.equals("magicCookie")){
+            this.changeMaxWeight();
+            this.aInventory.removeItem(pItem);
+            return "You can carry a lot more items in your inventory now.";
+        }
+        return "You have eaten now and you are not hungry any more.";
+    }
         /**
      * Procédure qui permet de changer la valeur de l'attribut aQuest.
      * @param pValue valeur booléenne
@@ -184,7 +203,7 @@ public class Player
         return "Your beamer is now charged.";
     }
     else{
-        return "You can't charge the beamer in the same room.";
+        return "Find the beamer or change places to charge it if you already have it.";
     }
     }
     

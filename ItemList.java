@@ -26,22 +26,6 @@ public class ItemList
         this.aItemList.put(pNom,pItem);
     }//addItem(.)
     
-    /**
-     * Fonction qui retourne la taille du keyset de la liste d'items
-     * @return Retourne un entier.
-     */
-    public int keysetSize(){
-        return this.aItemList.keySet().size();
-    }
-    
-    /**
-     * Fonction qui retourne la keyset de la liste d'items
-     * @return retourne un Set
-     */
-    public Set keySetList(){
-        return this.aItemList.keySet();
-    }
-    
     /** Procédure qui retire un Item de la HashMap aItemList
      * @param pNom nom de l'item
     */
@@ -50,7 +34,7 @@ public class ItemList
     }//removeItem(.)
     
     /** Fonction qui retourne un Item
-     *  @param pItem Nom de lItem
+     *  @param pItem Nom de l'Item
      *  @return retourne un item
      */
     public Item getItem(String pItem){
@@ -65,6 +49,23 @@ public class ItemList
     public boolean containsItem(final String pKey){
         return this.aItemList.containsKey(pKey);
     }
-    
+
+    /** Fonction qui Retourne la liste de tous les Items présents dans l'ItemList.
+     * @return Retourne la liste de tous les Items présents dans l'ItemList.
+    */
+    public String getItemString(){
+        String vReturn = "Items : ";
+        Set<String> vMesCles;
+        vMesCles = this.aItemList.keySet();
+        
+        if(vMesCles.size() == 0){
+            return "No items here...";
+        }
+        
+        for(String nom : vMesCles){
+            vReturn += this.getItem(nom).getItemDescription() + " -  " + this.getItem(nom).getItemWeight() + " ; ";
+        }
+        return vReturn;
+        }//getItemString()
 
 }

@@ -1,29 +1,4 @@
-take magicCookie
-eat magicCookie
-quest
-go down
-take broom
-go north
-go south
-go west 
 go east
-go north
-go south 
-go east
-take lighter
-go west
-go there
-go up
-take gums
-go south 
-drop gums
-g
-take keycard
-drop keycard
-go north
-items
-drop broom 
-go east 
 go up
 go north
 go south
@@ -44,7 +19,7 @@ help
 eat
 go south
 go down
-go north 
+go north
 charge
 charge beamer
 fire
@@ -54,9 +29,8 @@ go west
 go north
 take beamer
 charge beamer
-go south 
+go south
 charge beamer
 fire
 go east
 fire
-quit
