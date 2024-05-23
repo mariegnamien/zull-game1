@@ -58,7 +58,7 @@ public class ItemList
         Set<String> vMesCles;
         vMesCles = this.aItemList.keySet();
         
-        if(vMesCles.size() == 0){
+        if(vMesCles == null){
             return "No items here...";
         }
         

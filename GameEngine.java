@@ -189,12 +189,12 @@ public class GameEngine
     }//look()
     
         /**
-        *   Affiche un message dans la fenêtre lorsque l'utilisateur entre la commande eat 
+        * Affiche un message dans la fenêtre lorsque l'utilisateur entre la commande eat.
         * @param pItem nom de l'Item
         */
     private void eat(final String pItem){//
-        this.aPlayer.eat(pItem);
-    }//eat()
+        this.aGui.println(this.aPlayer.eat(pItem));
+    }//eat(.)
     
         /**
         * Permet de revenir dans la salle précédente une fois la commande entrée par l'utilisateur.
@@ -210,7 +210,7 @@ public class GameEngine
     }//back()
     
     /**
-     * Permet de lire le fichier texte mis en paramètre
+     * Permet de lire le fichier texte mis en paramètre.
      * @param pTextFichier fichier texte
      */
     private void lecture(final String pTextFichier){
@@ -228,10 +228,9 @@ public class GameEngine
             
         }
         
-    }//lecture()
+    }//lecture(.)
     
         /**
-        *
         * Retourne un booléen après traitement de la commande entrée par l'utilisateur.
         * @param pWord Commande entrée par l'utilisateur.
         */
@@ -253,7 +252,6 @@ public class GameEngine
 
         else if(vCommandWord.equals("go")){
             if(this.aPlayer.getQuest() == true){
-            //this.aPlayer.addStackRoom();
             this.goRoom(vCommand);
             this.aPlayer.quest();
             if(this.aPlayer.getSteps() >= 3 && this.aPlayer.hasItemInventory("broom") == false){
@@ -266,7 +264,6 @@ public class GameEngine
             }            
             }
             else{
-            //this.aPlayer.addStackRoom();
             this.goRoom(vCommand);
             }
         }
@@ -274,7 +271,10 @@ public class GameEngine
             this.look();
         }
         else if(vCommandWord.equals("eat")){
-            if(vCommand.hasSecondWord() && this.aPlayer.hasItemInventory("magicCookie")){//
+            if(vCommand.hasSecondWord() && this.aPlayer.hasItemInventory("magicCookie")){
+                this.eat(vCommand.getSecondWord());
+            }
+            else if(vCommand.hasSecondWord() && this.aPlayer.hasItemInventory("gums")){
                 this.eat(vCommand.getSecondWord());
             }
             else{
@@ -292,7 +292,7 @@ public class GameEngine
         }
         else if(vCommandWord.equals("take")){
             if(vCommand.hasSecondWord()){
-                if(this.aPlayer.hasItemRoom(vCommand.getSecondWord())){//
+                if(this.aPlayer.hasItemRoom(vCommand.getSecondWord())){
                 this.aGui.println(this.aPlayer.take(vCommand.getSecondWord()));
                 if(vCommand.getSecondWord().equals("beamer")){
                     this.aGui.println("You need to charge the beamer in another room.");
@@ -389,9 +389,9 @@ public class GameEngine
             this.aGui.println("Erreur du programmeur : commande non reconnue !");
         }
     
-    }//interpretCommand()
+    }//interpretCommand(.)
     
-        /**
+    /**
     *
     * Affiche le message d'aide.
     */
@@ -435,7 +435,7 @@ public class GameEngine
         else{
             this.aGui.println("Unknown direction !");
         }
-    } // Game
+    } //goRoom(.)
     
     /** Procédure d'arrêt du jeu.
     */
@@ -443,6 +443,6 @@ public class GameEngine
     {
         this.aGui.println( "Thank you for playing.  Good bye." );
         this.aGui.enable( false );
-    }
+    }//endGame()
 
 }
