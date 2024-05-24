@@ -34,10 +34,19 @@ public class Room
         this.aItems.addItem(pNom,pItem);
     }//addItem(.)
     
+    /**
+     * Procédure qui permet de retirer un item de la pièce.
+     * @param pNom - nom de l'item
+     */
     public void removeItem(final String pNom){
         this.aItems.removeItem(pNom);
     }
     
+    /**
+     * Fonction qui permet de savoir si un certain item est présent dans la pièce.
+     * @return retourne un booléen
+     * @param pNom - nom de l'item
+     */
     public boolean containsItem(final String pNom){
         return this.aItems.containsItem(pNom);
     }
@@ -118,6 +127,7 @@ public class Room
     /**
      * Fonction qui retourne un des Items présents dans la liste en fonction de nom entré en paramètres.
      * @return retourne un item
+     * @param pNom nom de l'item
      */
     public Item getItem(final String pNom){
         return this.aItems.getItem(pNom);

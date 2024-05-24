@@ -21,32 +21,60 @@ public class Beamer extends Item
       this.aChargingRoom = null;
     }
     
+    /**
+     * Permet de savoir si le beamer est chargé ou non.
+     * @return retourne un booléen.
+     */
     public boolean getBeamerState(){
         return this.aCharged;
-    }
+    }//get
     
+    /**
+     * Permet de connaître la pièce où le beamer a été chargé.
+     * @return retourne la pièce a été chargé le beamer.
+     */
     public Room getChargingRoom(){
         return this.aChargingRoom;
-    }
+    }//getChargingRoom()
     
+    /**
+     * Permet de changer la pièce où le beamer a été chargé.
+     * @param pRoom pièce où le beamer a été chargé.
+     */
     public void changeChargingRoom(final Room pRoom){
         this.aChargingRoom = pRoom;
-    }
+    }//changeChargingRoom(.)
     
+    /**
+     * Permet de charger/décharger le beamer.
+     * @param pValue valeur booléenne
+     */
     public void chargeBeamer(final boolean pValue){
         this.aCharged = pValue;
-    }
+    }//chargeBeamer(.)
     
+    /**
+     * Permet de changer l'endroit où le beamer a été ramassé.
+     * @param pRoom pièce où le beamer a été ramassé.
+     */
     public void changeBeamerLocation(final Room pRoom){
         this.aLocation = pRoom;
-    }
+    }//changeBeamerLocation(.)
     
+    /**
+     * Renvoie l'endroit où le beamer a été ramassé.
+     * @return renvoie une pièce du jeu.
+     */
     public Room getBeamerLocation(){
         return this.aLocation;
-    }
+    }//getBeamerLocation()
     
+    /**
+     * Renvoie le lieu où le beamer a été ramassé.
+     * @return renvoie une pièce du jeu.
+     */
     public Room fire(){
         this.chargeBeamer(false);
         return this.getBeamerLocation();
-    }
+    }//fire()
 }

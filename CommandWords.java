@@ -1,6 +1,5 @@
 /**
  * Classe CommandWords
- *
  * @author Gnamien Marie Emilienne
 
  */

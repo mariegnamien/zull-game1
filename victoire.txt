@@ -1,3 +1,5 @@
+take magicCookie
+eat magicCookie
 go down
 take broom
 go up 
@@ -8,3 +10,4 @@ go south
 charge beamer
 go east
 fire
+quit

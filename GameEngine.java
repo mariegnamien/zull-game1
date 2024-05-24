@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
  * Moteur du jeu d'aventure
  *
  * @author Marie Emilienne Gnamien
- * @version 15/03/2024
+ * @version 15/05/2024
  */
 public class GameEngine
 {
@@ -35,7 +35,7 @@ public class GameEngine
     {
         this.aGui = pUserInterface;
         this.printWelcome();
-    }//setGUI()
+    }//setGUI(.)
     
     /**
     *
@@ -84,8 +84,8 @@ public class GameEngine
         Room vPlatform = new Room("on the Platform","platform.jpg");
         Room vSecretBasement = new Room("at the secret basement entrance","secretbasement.jpg");
         Room vArena = new Room("in the arena","arena.jpg");
-        Room vTrapDoor = new Room("on the footbridge","door.jpg");
-        Room vTrapDoor2 = new Room("in a lost place","lost place.jpg");
+        Room vTrapDoor = new Room("on the footbridge","lost place.jpg");
+        Room vTrapDoor2 = new Room("in a lost place","door.jpg");
         
         
         Item vKeyCard = new Item("keyCard","keyCard - a transparent keycard made out of glass.", 5);
@@ -175,7 +175,7 @@ public class GameEngine
         vTrapDoor.setExit("down",vConvenienceStore);
         
         vTrapDoor2.setExit("west", vStreet2);
-        vTrapDoor2.setExit("south",vSecretBasement);
+        vTrapDoor2.setExit("south",vSecretWorkShop);
         
         this.aPlayer.changeRoom(vConvenienceStore);
     }//createRooms()

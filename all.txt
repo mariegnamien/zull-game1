@@ -1,36 +1,43 @@
-go east
-go up
-go north
-go south
-go west
+go down 
+take broom
+go east 
+go west 
+go up 
+take gums
 go north 
-go south
-go south
 go east
-go east
+go south
 go west
-go south
+go up 
+go west 
+go north 
+go south 
+go east 
+go south  
+take keyCard 
 go north
-go south
-go down
+take magicCookie
+eat magicCookie
+go west 
+go north 
+take beamer
 back
+charge beamer
+back
+fire beamer
 look
 help
-eat
-go south
+back
+drop beamer
+items
+quest
+go north 
+go east 
+go south 
+go south 
+go east 
+go east 
+go west 
+go south 
 go down
-go north
-charge
-charge beamer
-fire
-take beamer
-go south
-go west
-go north
-take beamer
-charge beamer
-go south
-charge beamer
-fire
-go east
-fire
+quit

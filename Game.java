@@ -1,7 +1,7 @@
 /**
  * Classe Game - le moteur du jeu d'aventure Zuul.
  * @author Gnamien Marie Emilienne
- * @version 15/03/2024
+ * @version 15/05/2024
  */
 public class Game{
     private UserInterface aGui;

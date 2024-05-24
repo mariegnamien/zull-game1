@@ -39,48 +39,49 @@
 <span class="source-line-no">026</span><span id="line-26">        this.aItemList.put(pNom,pItem);</span>
 <span class="source-line-no">027</span><span id="line-27">    }//addItem(.)</span>
 <span class="source-line-no">028</span><span id="line-28">    </span>
-<span class="source-line-no">029</span><span id="line-29">    /**</span>
-<span class="source-line-no">030</span><span id="line-30">     * Fonction qui retourne la taille du keyset de la liste d'items</span>
-<span class="source-line-no">031</span><span id="line-31">     * @return Retourne un entier.</span>
-<span class="source-line-no">032</span><span id="line-32">     */</span>
-<span class="source-line-no">033</span><span id="line-33">    public int keysetSize(){</span>
-<span class="source-line-no">034</span><span id="line-34">        return this.aItemList.keySet().size();</span>
-<span class="source-line-no">035</span><span id="line-35">    }</span>
-<span class="source-line-no">036</span><span id="line-36">    </span>
-<span class="source-line-no">037</span><span id="line-37">    /**</span>
-<span class="source-line-no">038</span><span id="line-38">     * Fonction qui retourne la keyset de la liste d'items</span>
-<span class="source-line-no">039</span><span id="line-39">     * @return retourne un Set</span>
-<span class="source-line-no">040</span><span id="line-40">     */</span>
-<span class="source-line-no">041</span><span id="line-41">    public Set keySetList(){</span>
-<span class="source-line-no">042</span><span id="line-42">        return this.aItemList.keySet();</span>
-<span class="source-line-no">043</span><span id="line-43">    }</span>
-<span class="source-line-no">044</span><span id="line-44">    </span>
-<span class="source-line-no">045</span><span id="line-45">    /** Procédure qui retire un Item de la HashMap aItemList</span>
-<span class="source-line-no">046</span><span id="line-46">     * @param pNom nom de l'item</span>
-<span class="source-line-no">047</span><span id="line-47">    */</span>
-<span class="source-line-no">048</span><span id="line-48">    public void removeItem(final String pNom){</span>
-<span class="source-line-no">049</span><span id="line-49">        this.aItemList.remove(pNom);</span>
-<span class="source-line-no">050</span><span id="line-50">    }//removeItem(.)</span>
-<span class="source-line-no">051</span><span id="line-51">    </span>
-<span class="source-line-no">052</span><span id="line-52">    /** Fonction qui retourne un Item</span>
-<span class="source-line-no">053</span><span id="line-53">     *  @param pItem Nom de lItem</span>
-<span class="source-line-no">054</span><span id="line-54">     *  @return retourne un item</span>
-<span class="source-line-no">055</span><span id="line-55">     */</span>
-<span class="source-line-no">056</span><span id="line-56">    public Item getItem(String pItem){</span>
-<span class="source-line-no">057</span><span id="line-57">        return this.aItemList.get(pItem);</span>
-<span class="source-line-no">058</span><span id="line-58">    }</span>
-<span class="source-line-no">059</span><span id="line-59">    </span>
-<span class="source-line-no">060</span><span id="line-60">        /**</span>
-<span class="source-line-no">061</span><span id="line-61">     * Fonction qui retourne un booléen en fonction de la présence ou non d'un Item dans aItems.</span>
-<span class="source-line-no">062</span><span id="line-62">     * @param pKey clé de l'Item</span>
-<span class="source-line-no">063</span><span id="line-63">     * @return retourne un booléen</span>
-<span class="source-line-no">064</span><span id="line-64">     */</span>
-<span class="source-line-no">065</span><span id="line-65">    public boolean containsItem(final String pKey){</span>
-<span class="source-line-no">066</span><span id="line-66">        return this.aItemList.containsKey(pKey);</span>
-<span class="source-line-no">067</span><span id="line-67">    }</span>
-<span class="source-line-no">068</span><span id="line-68">    </span>
-<span class="source-line-no">069</span><span id="line-69"></span>
-<span class="source-line-no">070</span><span id="line-70">}</span>
+<span class="source-line-no">029</span><span id="line-29">    /** Procédure qui retire un Item de la HashMap aItemList</span>
+<span class="source-line-no">030</span><span id="line-30">     * @param pNom nom de l'item</span>
+<span class="source-line-no">031</span><span id="line-31">    */</span>
+<span class="source-line-no">032</span><span id="line-32">    public void removeItem(final String pNom){</span>
+<span class="source-line-no">033</span><span id="line-33">        this.aItemList.remove(pNom);</span>
+<span class="source-line-no">034</span><span id="line-34">    }//removeItem(.)</span>
+<span class="source-line-no">035</span><span id="line-35">    </span>
+<span class="source-line-no">036</span><span id="line-36">    /** Fonction qui retourne un Item</span>
+<span class="source-line-no">037</span><span id="line-37">     *  @param pItem Nom de l'Item</span>
+<span class="source-line-no">038</span><span id="line-38">     *  @return retourne un item</span>
+<span class="source-line-no">039</span><span id="line-39">     */</span>
+<span class="source-line-no">040</span><span id="line-40">    public Item getItem(String pItem){</span>
+<span class="source-line-no">041</span><span id="line-41">        return this.aItemList.get(pItem);</span>
+<span class="source-line-no">042</span><span id="line-42">    }</span>
+<span class="source-line-no">043</span><span id="line-43">    </span>
+<span class="source-line-no">044</span><span id="line-44">        /**</span>
+<span class="source-line-no">045</span><span id="line-45">     * Fonction qui retourne un booléen en fonction de la présence ou non d'un Item dans aItems.</span>
+<span class="source-line-no">046</span><span id="line-46">     * @param pKey clé de l'Item</span>
+<span class="source-line-no">047</span><span id="line-47">     * @return retourne un booléen</span>
+<span class="source-line-no">048</span><span id="line-48">     */</span>
+<span class="source-line-no">049</span><span id="line-49">    public boolean containsItem(final String pKey){</span>
+<span class="source-line-no">050</span><span id="line-50">        return this.aItemList.containsKey(pKey);</span>
+<span class="source-line-no">051</span><span id="line-51">    }</span>
+<span class="source-line-no">052</span><span id="line-52"></span>
+<span class="source-line-no">053</span><span id="line-53">    /** Fonction qui Retourne la liste de tous les Items présents dans l'ItemList.</span>
+<span class="source-line-no">054</span><span id="line-54">     * @return Retourne la liste de tous les Items présents dans l'ItemList.</span>
+<span class="source-line-no">055</span><span id="line-55">    */</span>
+<span class="source-line-no">056</span><span id="line-56">    public String getItemString(){</span>
+<span class="source-line-no">057</span><span id="line-57">        String vReturn = "Items : ";</span>
+<span class="source-line-no">058</span><span id="line-58">        Set&lt;String&gt; vMesCles;</span>
+<span class="source-line-no">059</span><span id="line-59">        vMesCles = this.aItemList.keySet();</span>
+<span class="source-line-no">060</span><span id="line-60">        </span>
+<span class="source-line-no">061</span><span id="line-61">        if(vMesCles == null){</span>
+<span class="source-line-no">062</span><span id="line-62">            return "No items here...";</span>
+<span class="source-line-no">063</span><span id="line-63">        }</span>
+<span class="source-line-no">064</span><span id="line-64">        </span>
+<span class="source-line-no">065</span><span id="line-65">        for(String nom : vMesCles){</span>
+<span class="source-line-no">066</span><span id="line-66">            vReturn += this.getItem(nom).getItemDescription() + " -  " + this.getItem(nom).getItemWeight() + " ; ";</span>
+<span class="source-line-no">067</span><span id="line-67">        }</span>
+<span class="source-line-no">068</span><span id="line-68">        return vReturn;</span>
+<span class="source-line-no">069</span><span id="line-69">        }//getItemString()</span>
+<span class="source-line-no">070</span><span id="line-70"></span>
+<span class="source-line-no">071</span><span id="line-71">}</span>
 
 
 

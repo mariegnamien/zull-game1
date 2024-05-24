@@ -23,7 +23,6 @@ public class Player
     
     /**
      * Constructeur d'objets de classe Player
-     * @param pName nom du joueur
      */
     public Player()
     {
@@ -39,16 +38,20 @@ public class Player
         // initialisation des variables d'instance
     }
     
+    /**
+     * Fonction qui renvoie le nom du joueur.
+     * @return renvoie une chaîne de caractères.
+     */
     public String getName(){
         return this.aName;
-    }
+    }//getName()
     
     /**
      * Procédure qui change le poids maximal de l'inventaire.
      */
     private void changeMaxWeight(){
         this.aMaxWeight = 3000;
-    }
+    }//changeMaxWeight()
     
     /**
      * Procédure qui nous permet de repartir dans la pièce précédente.
@@ -62,7 +65,7 @@ public class Player
         }
     }
         return false;
-    }
+    }//back()
     
     /**
      * Procédure qui permet au joueur de changer de pièce.
@@ -70,14 +73,14 @@ public class Player
      */
     public void changeRoom(final Room pRoom){
         this.aCurrentRoom = pRoom;
-    }
+    }//changeRoom(.)
     
     /**
      * Procédure qui permet d'ajouter une nouvelle pièce à notre Stack.
      */
     public void addStackRoom(){
         this.aRoomStack.push(this.aCurrentRoom);
-    }
+    }//addStackRoom()
     
     /**
      * Accesseur qui permet d'obtenir la pièce courante.
@@ -85,7 +88,7 @@ public class Player
      */
     public Room getCurrentRoom(){
         return this.aCurrentRoom;
-    }
+    }//getCurrentRoom()
     
     /**
      * Fonction qui retourne l'inventaire du joueur ainsi que son poids total.
@@ -98,19 +101,35 @@ public class Player
        else{
         return this.aInventory.getItemString() + " total weight : " + this.aWeight;
     }
-    }
+    }//items()
     
+    /**
+     * Permet de vérifier si le poids de l'objet passé
+     * @return Retourne un booléen.
+     * @param pWeight - poids de l'item
+     */
     public boolean verifyWeight(final int pWeight){
         return this.aWeight + pWeight < this.aMaxWeight;
-    }
+    }//verifyWeight()
     
+    /**
+     * Permet de savoir s'il y a un item dans la pièce actuelle.
+     * @param pWord - nom de l'item
+     * @return Retourne un booléen.
+     * 
+     */
     public boolean hasItemRoom(final String pWord){
         return this.aCurrentRoom.containsItem(pWord);
-    }
+    }//hasItemRoom(.)
     
+    /**
+     * Permet de savoir si le joueur possède un certain item.
+     * @param pWord - nom de l'item
+     * @return Retourne un booléen
+     */
     public boolean hasItemInventory(final String pWord){
         return this.aInventory.containsItem(pWord);
-    }
+    }//hasItemInventory(.)
     
     /**
      * Fonction qui permet au joueur de prendre un item dans son inventaire.
@@ -132,7 +151,7 @@ public class Player
        else{
            return "you can't take this item, it is too heavy for you (maybe eating something could help you with that...).";
        }
-    }
+    }//take(.)
     
     /**
      * Procédure qui permet au joueur de déposer un item dans une pièce.
@@ -142,7 +161,7 @@ public class Player
         this.aCurrentRoom.addItem(pItem,this.aInventory.getItem(pItem));
         this.aWeight -= this.aInventory.getItem(pItem).getItemWeight();
         this.aInventory.removeItem(pItem);
-    }
+    }//drop(.)
 
     /**
      * Procédure de la première quête qui nous permet de compter le nombre de pas effectués.
@@ -156,6 +175,11 @@ public class Player
     }
     }
     
+    /**
+     * Permet de manger un aliment du jeu
+     * @return renvoie une chaîne de caractères.
+     * @param pItem - nom de l'item
+     */
     public String eat(final String pItem){
         if(pItem.equals("magicCookie")){
             this.changeMaxWeight();
@@ -170,7 +194,7 @@ public class Player
         }
         return "You can't eat this.";
     }
-        /**
+    /**
      * Procédure qui permet de changer la valeur de l'attribut aQuest.
      * @param pValue valeur booléenne
      */
@@ -194,6 +218,10 @@ public class Player
         return this.aSteps;
     }
     
+    /**
+     * Permet de charger le beamer.
+     * @return renvoie une chaîne de caractères.
+     */
     public String charge(){
     if(this.aCurrentRoom != this.aBeamer.getBeamerLocation() && this.aInventory.containsItem("beamer")){
         this.aBeamer.chargeBeamer(true);
@@ -205,6 +233,10 @@ public class Player
     }
     }
     
+    /**
+     * Permet de "fire" le beamer.
+     * @return renvoie une chaîne de caractères.
+     */
     public String fire(){
     if(this.aBeamer.getChargingRoom() != null && this.aCurrentRoom != this.aBeamer.getChargingRoom()){
     if(this.aInventory.containsItem("beamer") && this.aBeamer.getBeamerState()){
