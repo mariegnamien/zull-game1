@@ -10,4 +10,3 @@ go south
 charge beamer
 go east
 fire
-quit

@@ -10,6 +10,7 @@ public class Beamer extends Item
     private Room aLocation;
     private boolean aCharged;
     private Room aChargingRoom;
+    private boolean aFired;
     
     /**
      * Constructeur d'objets de classe Beamer
@@ -19,6 +20,23 @@ public class Beamer extends Item
       this.aCharged = false;
       this.aLocation = null;
       this.aChargingRoom = null;
+      this.aFired = false;
+    }//Beamer()
+    
+    /**
+     * Permet de changer la valeur de notre attribut aFired
+     * @param pValue valeur booléenne
+     */
+    public void changeFired(final boolean pValue){
+        this.aFired = pValue;
+    }
+    
+    /**
+     * Permet de retourner la valeur de l'attribut aFired
+     * @return valeur booléenne
+     */
+    public boolean getFired(){
+        return this.aFired;
     }
     
     /**
@@ -27,7 +45,7 @@ public class Beamer extends Item
      */
     public boolean getBeamerState(){
         return this.aCharged;
-    }//get
+    }//getBeamerState()
     
     /**
      * Permet de connaître la pièce où le beamer a été chargé.

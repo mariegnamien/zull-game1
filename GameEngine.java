@@ -383,6 +383,10 @@ public class GameEngine
                 this.aGui.println(this.aPlayer.fire());
                 this.aGui.println("");
                 this.printLocationInfo();
+                if(this.aPlayer.getFired() == true){
+                    this.aGui.println("You found the beamer, you won.");
+                    this.endGame();
+                }
             }
         }
         else{

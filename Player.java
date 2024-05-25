@@ -103,6 +103,7 @@ public class Player
     }
     }//items()
     
+    
     /**
      * Permet de vérifier si le poids de l'objet passé
      * @return Retourne un booléen.
@@ -219,6 +220,22 @@ public class Player
     }
     
     /**
+     * Permet de changer la valeur de notre attribut aFired de Beamer
+     * @param pValue valeur booléenne
+     */
+    public void changeFired(final boolean pValue){
+        this.aBeamer.changeFired(pValue);
+    }
+    
+        /**
+     * Permet de retourner la valeur de l'attribut aFired de Beamer
+     * @return valeur booléenne
+     */
+    public boolean getFired(){
+        return this.aBeamer.getFired();
+    }
+    
+    /**
      * Permet de charger le beamer.
      * @return renvoie une chaîne de caractères.
      */
@@ -241,6 +258,7 @@ public class Player
     if(this.aBeamer.getChargingRoom() != null && this.aCurrentRoom != this.aBeamer.getChargingRoom()){
     if(this.aInventory.containsItem("beamer") && this.aBeamer.getBeamerState()){
         this.aCurrentRoom = this.aBeamer.fire();
+        this.aBeamer.changeFired(true);
         return "Your beamer is now discharged. Charge it again if you want to use it.";
     }
     else if(this.aInventory.containsItem("beamer") && (!this.aBeamer.getBeamerState())){
