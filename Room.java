@@ -111,7 +111,7 @@ public class Room
      * Retourne une longue description de cette "room", de la forme 
      *          You are in the kitchen
      *          Exits : north west.
-     * @return A description of the room, including exits. 
+     * @return A description of the room, including exits and items.
      */
     public String getLongDescription(){
         return "You are " + this.aDescription + ".\n" + this.getExitString() + "\n" + this.getItemString();
