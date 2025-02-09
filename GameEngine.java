@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 /**
  * Moteur du jeu d'aventure
  *
- * @author Marie Emilienne Gnamien
+ * @author Marie Gnamien
  * @version 15/05/2024
  */
 public class GameEngine
